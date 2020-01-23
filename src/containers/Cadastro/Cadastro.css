@@ -7,6 +7,7 @@
     background-color: #fff;
     margin-top: 2em !important;
     border-radius: 0.3em;
+    border: solid 0.1em #00a85D;
 }
 
 .input-lg {
@@ -24,4 +25,14 @@
 
 .btn-form {
     margin: 2em 0 !important;
+    background-color: #a8004c !important;
+    color: #f5f5f5 !important;
+    font-weight: bold !important;
+    transition: background-color 1s linear 1s;
+}
+
+.btn-form:hover {
+    /* background-color: #5c00a8 !important; */
+    background-color: #a8004c !important;
+    opacity: 0.85;
 }

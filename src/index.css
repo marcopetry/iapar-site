@@ -1,7 +1,10 @@
-body {
-    background: #b6f99e;
+body, #root {
+    /* background: #b6f99e; */
+    /* background: #ddd; */
+    background: #eee;
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    height: 100%;
 }
       

@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from '../../assets/logo-iapar.png';
 import './Cadastro.css';
 import { Select, Grid, FormControl, InputLabel, Input, FormGroup, Container, MenuItem, Button } from '@material-ui/core';
 
 export default function Cadastro() {
+    const [nome, setNome] = useState('');
+    const [cpf, setCPF] = useState('');
+    const [telefone, setTelefone] = useState('');
+    const [cidade, setCidade] = useState('');
+    const [cep, setCep] = useState('');
+    const [rua, setRua] = useState('');
+    const [numero, setNumero] = useState('');
+    const [bairro, setBairro] = useState('');
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [registro, setRegistro] = useState('');
+    const [tipoRegistro, setTipoRegistro] = useState('');
+    const [anoFormatura, setAnoFormatura] = useState('');
 
     return (
         <Grid container direction="column" justify="space-evenly" alignItems="center">
@@ -72,10 +85,27 @@ export default function Cadastro() {
                         <Input id="ano-formatura" aria-describedby="my-helper-text" />
                     </FormControl>
                 </FormGroup>
-                <Button variant="contained" color="secondary" fullWidth="true" className="btn-form">
+                <Button variant="contained" fullWidth="true" className="btn-form" onClick={() => alert('clicou')}>
                     Cadastrar
                 </Button>
             </Container>
         </Grid>
     );
 }
+
+/*
+    "nome": "Marco",
+  "email": "yeswesafsdfss@gfdf.casdaom",
+  "senha": "123456",
+  "cpf": "aseassdfsdfdxw",
+  "cidade": "Dois Vizinhos",
+  "rua": "Wenceslau",
+  "numero": "166",
+  "bairro": "Torres",
+  "cep": "85660-000",
+  "telefone": "99999999",
+  "tipo_usuario": "tecnico",
+  "ano_formatura": "2020",
+  "tipo_registro": "CREA",
+  "registro_profissional": "123456"
+*/
