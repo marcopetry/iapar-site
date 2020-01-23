@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import logo from '../../assets/logo-iapar.png';
 import './Cadastro.css';
 import { Select, Grid, FormControl, InputLabel, Input, FormGroup, Container, MenuItem, Button } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import api from '../../services/api';
 
 export default function Cadastro() {
     const [nome, setNome] = useState('');
@@ -15,9 +15,30 @@ export default function Cadastro() {
     const [bairro, setBairro] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
-    const [registro, setRegistro] = useState('');
-    const [tipoRegistro, setTipoRegistro] = useState('');
+    const [registro_profissional, setRegistroProfissional] = useState('');
+    const [tipo_registro_profissional, setTiporegistro_profissional] = useState('');
     const [anoFormatura, setAnoFormatura] = useState('');
+
+    async function cadastrarUsuarioTecnico(){
+        const response = await api.post('/user', {
+            nome,
+            cpf,
+            telefone,
+            cidade,
+            cep,
+            rua,
+            numero,
+            bairro,
+            email,
+            senha,
+            tipo_registro_profissional,
+            registro_profissional,
+            ano_formatura: anoFormatura,
+            tipo_usuario: 'tecnico',
+        });
+        alert('passou')
+        console.log(response);
+    }
 
     return (
         <Grid container direction="column" justify="space-evenly" alignItems="center">
@@ -121,23 +142,23 @@ export default function Cadastro() {
                 </FormControl>
                 <FormGroup row="true">
                     <FormControl margin="dense" className="input-md">
-                        <InputLabel htmlFor="tipo-registro" >Tipo Registro</InputLabel>
-                        <Select id="tipo-registro" 
+                        <InputLabel htmlFor="tipo-registro_profissional" >Tipo Registro</InputLabel>
+                        <Select id="tipo-registro_profissional" 
                             aria-describedby="my-helper-text"
-                            onChange={e => setTipoRegistro(e.target.value)}
-                            value={tipoRegistro}
+                            onChange={e => setTiporegistro_profissional(e.target.value)}
+                            value={tipo_registro_profissional}
                         >
                             <MenuItem value="CREA">CREA</MenuItem>
                             <MenuItem value="CRMV">CRMV</MenuItem>
                         </Select>
                     </FormControl>
                     <FormControl margin="dense" className="input-md ml-input-md">
-                        <InputLabel htmlFor="numero-registro" >Número do Registro</InputLabel>
-                        <Input id="numero-registro" 
+                        <InputLabel htmlFor="numero-registro_profissional" >Número do Registro</InputLabel>
+                        <Input id="numero-registro_profissional" 
                             aria-describedby="my-helper-text" 
                             required
-                            onChange={e => setRegistro(e.target.value)}
-                            value={registro}
+                            onChange={e => setRegistroProfissional(e.target.value)}
+                            value={registro_profissional}
                         />
                     </FormControl>
                     <FormControl margin="dense" className="input-md ml-input-md">
@@ -150,7 +171,7 @@ export default function Cadastro() {
                         />
                     </FormControl>
                 </FormGroup>
-                <Button variant="contained" fullWidth="true" className="btn-form" onClick={() => alert(tipoRegistro)}>
+                <Button variant="contained" fullWidth="true" className="btn-form" onClick={cadastrarUsuarioTecnico}>
                     Cadastrar
                 </Button>
             </Container>
@@ -171,6 +192,6 @@ export default function Cadastro() {
   "telefone": "99999999",
   "tipo_usuario": "tecnico",
   "ano_formatura": "2020",
-  "tipo_registro": "CREA",
-  "registro_profissional": "123456"
+  "tipo_registro_profissional": "CREA",
+  "registro_profissional_profissional": "123456"
 */
