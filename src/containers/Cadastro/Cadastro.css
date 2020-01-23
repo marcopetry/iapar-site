@@ -1,0 +1,27 @@
+.img-logo {
+    max-width: 200px;
+    margin-top: 2em !important;
+}
+
+.container-form-cadastro {
+    background-color: #fff;
+    margin-top: 2em !important;
+    border-radius: 0.3em;
+}
+
+.input-lg {
+    width: 60%;
+    margin-right: 10% !important;
+}
+
+.input-md {
+    width: 30%;
+}
+
+.ml-input-md {
+    margin-left: 5% !important;
+}
+
+.btn-form {
+    margin: 2em 0 !important;
+}
