@@ -42,9 +42,13 @@ export default function Cadastro() {
             tipo_usuario: 'tecnico',
         }
         //validators
-        setErros(validarInformacoesCadastro(dados));
+        const errosValidados = validarInformacoesCadastro(dados);
+        setErros(errosValidados);
+        if(errosValidados.some(elemento => elemento !== '')){
+            return;
+        }
 
-       /*  setLoading(true);
+        setLoading(true);
         const response = await api.post('/user', {
             nome,
             cpf,
@@ -60,7 +64,7 @@ export default function Cadastro() {
             registro_profissional,
             ano_formatura: anoFormatura,
             tipo_usuario: 'tecnico',
-        }); */
+        }); 
         //console.log(response);
     }
 
