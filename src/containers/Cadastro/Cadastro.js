@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import logo from '../../assets/logo-iapar.png';
 import './Cadastro.css';
 import { Select, Grid, FormControl, InputLabel, Input, FormGroup, Container, MenuItem, Button, CircularProgress } from '@material-ui/core';
+import { Alert, AlertTitle } from '@material-ui/lab';
 import api from '../../services/api';
 import SpanErro from '../../components/span-erro/span-erro';
 import { validarInformacoesCadastro } from '../../validators/validator-cadastro-usuario';
@@ -21,7 +22,7 @@ export default function Cadastro() {
     const [registro_profissional, setRegistroProfissional] = useState('');
     const [tipo_registro, setTiporegistro] = useState('');
     const [anoFormatura, setAnoFormatura] = useState('');
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState('completado');
     const [erros, setErros] = useState(preencherArrayErrosComVazio());
 
     async function cadastrarUsuarioTecnico() {
@@ -44,7 +45,7 @@ export default function Cadastro() {
         //validators
         const errosValidados = validarInformacoesCadastro(dados);
         setErros(errosValidados);
-        if(errosValidados.some(elemento => elemento !== '')){
+        if (errosValidados.some(elemento => elemento !== '')) {
             return;
         }
 
@@ -64,8 +65,22 @@ export default function Cadastro() {
             registro_profissional,
             ano_formatura: anoFormatura,
             tipo_usuario: 'tecnico',
-        }); 
+        });
         //console.log(response);
+        setLoading('completado');
+    }
+
+    if (loading === 'completado') {
+        return (
+            <Grid container direction="column" justify="space-evenly" alignItems="center">
+                <img src={logo} alt="iapar-logo" className="img-logo" />
+                <Container maxWidth="sm" className="container-form-cadastro">
+                    <Alert severity="info">
+                        Você precisa acessar seu email para confirmar seu cadastro.
+                    </Alert>
+                </Container>
+            </Grid>
+        );
     }
 
     return (
@@ -77,7 +92,7 @@ export default function Cadastro() {
                     <Input id="nome-completo"
                         required={true}
                         onChange={(e) => setNome(e.target.value)}
-                        error={erros[0] === '' ? false : true }
+                        error={erros[0] === '' ? false : true}
                         value={nome}
                     />
                     <SpanErro erro={erros[0]} />
@@ -89,7 +104,7 @@ export default function Cadastro() {
                             required
                             onChange={(e) => setCPF(e.target.value)}
                             value={cpf}
-                            error={erros[1] === '' ? false : true }
+                            error={erros[1] === '' ? false : true}
                         />
                         <SpanErro erro={erros[1]} />
                     </FormControl>
@@ -99,7 +114,7 @@ export default function Cadastro() {
                             required
                             onChange={(e) => setTelefone(e.target.value)}
                             value={telefone}
-                            error={erros[2] === '' ? false : true }
+                            error={erros[2] === '' ? false : true}
                         />
                         <SpanErro erro={erros[2]} />
                     </FormControl>
@@ -111,7 +126,7 @@ export default function Cadastro() {
                             required
                             onChange={(e) => setCidade(e.target.value)}
                             value={cidade}
-                            error={erros[3] === '' ? false : true }
+                            error={erros[3] === '' ? false : true}
                         />
                         <SpanErro erro={erros[3]} />
                     </FormControl>
@@ -121,7 +136,7 @@ export default function Cadastro() {
                             required
                             onChange={(e) => setCep(e.target.value)}
                             value={cep}
-                            error={erros[4] === '' ? false : true }
+                            error={erros[4] === '' ? false : true}
                         />
                         <SpanErro erro={erros[4]} />
                     </FormControl>
@@ -132,7 +147,7 @@ export default function Cadastro() {
                         required
                         onChange={(e) => setRua(e.target.value)}
                         value={rua}
-                        error={erros[5] === '' ? false : true }
+                        error={erros[5] === '' ? false : true}
                     />
                     <SpanErro erro={erros[5]} />
                 </FormControl>
@@ -143,7 +158,7 @@ export default function Cadastro() {
                             required
                             onChange={e => setBairro(e.target.value)}
                             value={bairro}
-                            error={erros[6] === '' ? false : true }
+                            error={erros[6] === '' ? false : true}
                         />
                         <SpanErro erro={erros[6]} />
                     </FormControl>
@@ -153,7 +168,7 @@ export default function Cadastro() {
                             required
                             onChange={(e) => setNumero(e.target.value)}
                             value={numero}
-                            error={erros[7] === '' ? false : true }
+                            error={erros[7] === '' ? false : true}
                         />
                         <SpanErro erro={erros[7]} />
                     </FormControl>
@@ -165,7 +180,7 @@ export default function Cadastro() {
                         type="email"
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
-                        error={erros[8] === '' ? false : true }
+                        error={erros[8] === '' ? false : true}
                     />
                     <SpanErro erro={erros[8]} />
                 </FormControl>
@@ -176,7 +191,7 @@ export default function Cadastro() {
                         type="password"
                         onChange={(e) => setSenha(e.target.value)}
                         value={senha}
-                        error={erros[9] === '' ? false : true }
+                        error={erros[9] === '' ? false : true}
                     />
                     <SpanErro erro={erros[9]} />
                 </FormControl>
@@ -186,7 +201,7 @@ export default function Cadastro() {
                         <Select id="tipo-registro_profissional"
                             onChange={e => setTiporegistro(e.target.value)}
                             value={tipo_registro}
-                            error={erros[10] === '' ? false : true }
+                            error={erros[10] === '' ? false : true}
                         >
                             <MenuItem value="CREA">CREA</MenuItem>
                             <MenuItem value="CRMV">CRMV</MenuItem>
@@ -199,7 +214,7 @@ export default function Cadastro() {
                             required
                             onChange={e => setRegistroProfissional(e.target.value)}
                             value={registro_profissional}
-                            error={erros[11] === '' ? false : true }
+                            error={erros[11] === '' ? false : true}
                         />
                         <SpanErro erro={erros[11]} />
                     </FormControl>
@@ -209,7 +224,7 @@ export default function Cadastro() {
                             required
                             onChange={e => setAnoFormatura(e.target.value)}
                             value={anoFormatura}
-                            error={erros[12] === '' ? false : true }
+                            error={erros[12] === '' ? false : true}
                         />
                         <SpanErro erro={erros[12]} />
                     </FormControl>
