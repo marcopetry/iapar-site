@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import logo from '../../assets/logo-iapar.png';
 import './Cadastro.css';
 import { Select, Grid, FormControl, InputLabel, Input, FormGroup, Container, MenuItem, Button, CircularProgress } from '@material-ui/core';
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Alert } from '@material-ui/lab';
 import api from '../../services/api';
 import SpanErro from '../../components/span-erro/span-erro';
 import { validarInformacoesCadastro } from '../../validators/validator-cadastro-usuario';
 import { preencherArrayErrosComVazio } from '../../helpers/preencherArrayErrosComVazio';
+import { maskCPF, teste } from '../../helpers/masks-cadastro';
+
 
 export default function Cadastro() {
     const [nome, setNome] = useState('');
@@ -22,7 +24,7 @@ export default function Cadastro() {
     const [registro_profissional, setRegistroProfissional] = useState('');
     const [tipo_registro, setTiporegistro] = useState('');
     const [anoFormatura, setAnoFormatura] = useState('');
-    const [loading, setLoading] = useState('completado');
+    const [loading, setLoading] = useState(false);
     const [erros, setErros] = useState(preencherArrayErrosComVazio());
 
     async function cadastrarUsuarioTecnico() {
@@ -42,7 +44,12 @@ export default function Cadastro() {
             ano_formatura: anoFormatura,
             tipo_usuario: 'tecnico',
         }
-        //validators
+        /*
+            validators
+            uso essa constante errosvalidados para poder pegar em tempo de execução os erros e verificar 
+            para chamar o backend, pois setar o estado leva um tempo e não consigo pegar pra validar.
+            Se tiver um erro ele retorna tela do formulário.
+        */
         const errosValidados = validarInformacoesCadastro(dados);
         setErros(errosValidados);
         if (errosValidados.some(elemento => elemento !== '')) {
@@ -74,7 +81,7 @@ export default function Cadastro() {
         return (
             <Grid container direction="column" justify="space-evenly" alignItems="center">
                 <img src={logo} alt="iapar-logo" className="img-logo" />
-                <Container maxWidth="sm" className="container-form-cadastro">
+                <Container maxWidth="sm" className="container-form-cadastro p-0">
                     <Alert severity="info">
                         Você precisa acessar seu email para confirmar seu cadastro.
                     </Alert>
@@ -102,7 +109,9 @@ export default function Cadastro() {
                         <InputLabel htmlFor="cpf">CPF</InputLabel>
                         <Input id="cpf"
                             required
-                            onChange={(e) => setCPF(e.target.value)}
+                            onKeyDown={e => (e.keyCode > 95 && e.keyCode < 106) || e.keyCode === 8 ? setCPF(maskCPF(e.key, cpf)) : null}
+                            //onKeyDown={e => (e.keyCode > 95 && e.keyCode < 106) || e.keyCode === 8 ? setCPF(maskCPF(e.key, cpf)) : null}
+                            //onChange={(e) => setCPF(maskCPF(cpf, e.target.value))}
                             value={cpf}
                             error={erros[1] === '' ? false : true}
                         />

@@ -10,6 +10,10 @@
     border: solid 0.06em #00a85D;
 }
 
+.p-o {
+    padding: 0 !important;
+}
+
 .input-lg {
     width: 60%;
     margin-right: 10% !important;
