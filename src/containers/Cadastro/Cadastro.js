@@ -7,7 +7,8 @@ import api from '../../services/api';
 import SpanErro from '../../components/span-erro/span-erro';
 import { validarInformacoesCadastro } from '../../validators/validator-cadastro-usuario';
 import { preencherArrayErrosComVazio } from '../../helpers/preencherArrayErrosComVazio';
-import { maskCPF, teste } from '../../helpers/masks-cadastro';
+import { maskCPF, confereNumeroOuBackspace, maskTelefone, maskCEP, apenasNumeros, apenasAno } from '../../helpers/masks-cadastro';
+import { setarErrosBackend } from '../../helpers/setarErrosBackend';
 
 
 export default function Cadastro() {
@@ -73,8 +74,20 @@ export default function Cadastro() {
             ano_formatura: anoFormatura,
             tipo_usuario: 'tecnico',
         });
-        //console.log(response);
-        setLoading('completado');
+
+        //backend retorna array de erros, caso vazio, completado
+        console.log(response);
+        if(response.data.resposta === 'Cadastro realizado com sucesso.')
+            setLoading('completado');
+        else {
+            if(response.data.resposta === 'Tente novamente.'){
+                alert('Tente novamente mais tarde.');
+            } else {
+                alert(response.data.resposta);
+                setErros(setarErrosBackend(response.data.resposta));
+            }
+            setLoading(false);
+        }
     }
 
     if (loading === 'completado') {
@@ -109,9 +122,7 @@ export default function Cadastro() {
                         <InputLabel htmlFor="cpf">CPF</InputLabel>
                         <Input id="cpf"
                             required
-                            onKeyDown={e => (e.keyCode > 95 && e.keyCode < 106) || e.keyCode === 8 ? setCPF(maskCPF(e.key, cpf)) : null}
-                            //onKeyDown={e => (e.keyCode > 95 && e.keyCode < 106) || e.keyCode === 8 ? setCPF(maskCPF(e.key, cpf)) : null}
-                            //onChange={(e) => setCPF(maskCPF(cpf, e.target.value))}
+                            onKeyDown={e => confereNumeroOuBackspace(e) ? setCPF(maskCPF(e.key, cpf)) : null}
                             value={cpf}
                             error={erros[1] === '' ? false : true}
                         />
@@ -121,7 +132,7 @@ export default function Cadastro() {
                         <InputLabel htmlFor="telefone">Telefone</InputLabel>
                         <Input id="telefone"
                             required
-                            onChange={(e) => setTelefone(e.target.value)}
+                            onKeyDown={e => confereNumeroOuBackspace(e) ? setTelefone(maskTelefone(e.key, telefone)) : null}
                             value={telefone}
                             error={erros[2] === '' ? false : true}
                         />
@@ -143,7 +154,7 @@ export default function Cadastro() {
                         <InputLabel htmlFor="cep" >Cep</InputLabel>
                         <Input id="cep"
                             required
-                            onChange={(e) => setCep(e.target.value)}
+                            onKeyDown={e => confereNumeroOuBackspace(e) ? setCep(maskCEP(e.key, cep)) : null}
                             value={cep}
                             error={erros[4] === '' ? false : true}
                         />
@@ -175,7 +186,7 @@ export default function Cadastro() {
                         <InputLabel htmlFor="numero" >Número</InputLabel>
                         <Input id="numero"
                             required
-                            onChange={(e) => setNumero(e.target.value)}
+                            onKeyDown={e => confereNumeroOuBackspace(e) ? setNumero(apenasNumeros(e.key, numero)) : null}
                             value={numero}
                             error={erros[7] === '' ? false : true}
                         />
@@ -231,7 +242,7 @@ export default function Cadastro() {
                         <InputLabel htmlFor="ano-formatura" >Ano Formatura</InputLabel>
                         <Input id="ano-formatura"
                             required
-                            onChange={e => setAnoFormatura(e.target.value)}
+                            onKeyDown={e => confereNumeroOuBackspace(e) ? setAnoFormatura(apenasAno(e.key, anoFormatura)) : null}
                             value={anoFormatura}
                             error={erros[12] === '' ? false : true}
                         />
