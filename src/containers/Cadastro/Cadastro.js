@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import logo from '../../assets/logo-iapar.png';
 import './Cadastro.css';
+import { Link }  from 'react-router-dom';
 import { Select, Grid, FormControl, InputLabel, Input, FormGroup, Container, MenuItem, Button, CircularProgress } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import api from '../../services/api';
@@ -76,7 +77,6 @@ export default function Cadastro() {
         });
 
         //backend retorna array de erros, caso vazio, completado
-        console.log(response);
         if(response.data.resposta === 'Cadastro realizado com sucesso.')
             setLoading('completado');
         else {
@@ -250,8 +250,11 @@ export default function Cadastro() {
                     </FormControl>
                 </FormGroup>
                 <Button variant="contained" fullWidth className="btn-form" onClick={cadastrarUsuarioTecnico}>
-                    {loading ? <CircularProgress disableShrink size="1.7em" /> : 'Cadastrar'}
+                    {loading ? <CircularProgress classes="color-circular" disableShrink size="1.7em" /> : 'Cadastrar'}
                 </Button>
+                <div className="container-link-login">
+                    <Link to="/" className="link-login">Já tem senha? Clique aqui e faça login!</Link>
+                </div>
             </Container>
         </Grid>
     );
