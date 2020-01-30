@@ -7,3 +7,32 @@
     color: #00a85D !important;
     margin: 2em !important;
 }
+
+.container-auth {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: solid 1px #00a85D;
+    border-radius: 0.3em;
+    margin: 2em;
+    padding: 1.5em !important;
+}
+
+.alert-auth-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.container-input-email-auth {
+    width: 100%;
+}
+
+.btn-auth {
+    background-color: #a8004c !important;
+    margin-top: 1.5em !important;
+    font-weight: bold !important;
+}
