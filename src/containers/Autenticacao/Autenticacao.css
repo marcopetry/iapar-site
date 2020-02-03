@@ -36,3 +36,17 @@
     margin-top: 1.5em !important;
     font-weight: bold !important;
 }
+
+.color-circular {
+    color: #00a85D !important;
+}
+
+.container-link-auth {
+    margin-top: 0.5em !important;
+    width: 100%;
+}
+
+.link-auth {
+    font-size: 12 !important;
+    color: #a8004c;
+}
