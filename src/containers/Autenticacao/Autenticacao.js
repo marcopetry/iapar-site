@@ -18,12 +18,9 @@ export default function Autenticacao({ history }) {
 
     async function validarUsuario() {
         const response = await api.get(`/auth/${token}`);
-        if (response.data.erro === undefined) {
-            const [usuario] = response.data[1];
-            history.push('/menu', { usuario });
-        } else {
+        response.data.erro === undefined ? 
+            history.push('/menu', { usuario: response.data }) : 
             setErro('Seu token expirou. Digite seu email para enviarmos novamente.');
-        }
     }
 
     async function reenviarTokenVerificacao(){

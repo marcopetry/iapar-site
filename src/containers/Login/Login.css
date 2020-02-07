@@ -3,6 +3,12 @@
     margin-top: 2em !important;
 }
 
+.alert-login {
+    margin-top: 2em;
+    border-radius: 0.3em;
+    border: solid 0.06em #00a85D;
+}
+
 .container-form-cadastro {
     background-color: #fff;
     margin-top: 2em !important;
