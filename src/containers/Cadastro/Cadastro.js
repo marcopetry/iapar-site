@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './Cadastro.css';
-import { Link } from 'react-router-dom';
-import { Select, FormControl, InputLabel, Input, FormGroup, MenuItem, Button, CircularProgress } from '@material-ui/core';
+import { Select, FormControl, InputLabel, Input, FormGroup, MenuItem } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import api from '../../services/api';
 import SpanErro from '../../components/span-erro/span-erro';

@@ -2259,3 +2259,27 @@ Compiled with warnings.
 Search for the keywords to learn more about each warning.
 To ignore, add // eslint-disable-next-line to the line before.
 
+Compiling...
+Compiled with warnings.
+
+./src/components/button-submit-form/button-submit-form.js
+  Line 1:17:  'useState' is defined but never used  no-unused-vars
+
+./src/containers/Login/Login.js
+  Line 29:8:  React Hook useEffect has missing dependencies: 'history' and 'token'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
+Compiling...
+Compiled with warnings.
+
+./src/components/button-submit-form/button-submit-form.js
+  Line 1:17:  'useState' is defined but never used  no-unused-vars
+
+./src/containers/Login/Login.js
+  Line 29:8:  React Hook useEffect has missing dependencies: 'history' and 'token'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+Search for the keywords to learn more about each warning.
+To ignore, add // eslint-disable-next-line to the line before.
+
