@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import logo from '../../assets/logo-iapar.png';
 import './Cadastro.css';
-import { Link }  from 'react-router-dom';
-import { Select, Grid, FormControl, InputLabel, Input, FormGroup, Container, MenuItem, Button, CircularProgress } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { Select, FormControl, InputLabel, Input, FormGroup, MenuItem, Button, CircularProgress } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import api from '../../services/api';
 import SpanErro from '../../components/span-erro/span-erro';
@@ -10,6 +9,10 @@ import { validarInformacoesCadastro } from '../../validators/validator-cadastro-
 import { preencherArrayErrosComVazio } from '../../helpers/preencherArrayErrosComVazio';
 import { maskCPF, confereNumeroOuBackspace, maskTelefone, maskCEP, apenasNumeros, apenasAno } from '../../helpers/masks-cadastro';
 import { setarErrosBackend } from '../../helpers/setarErrosBackend';
+import ContainerForm from '../../components/container-form/container-form';
+import ContainerMain from '../../components/container-main/container-main';
+import ButtonSubmitForm from '../../components/button-submit-form/button-submit-form';
+import LinkRedirect from '../../components/link/link';
 
 
 export default function Cadastro() {
@@ -77,10 +80,10 @@ export default function Cadastro() {
         });
 
         //backend retorna array de erros, caso vazio, completado
-        if(response.data.resposta === 'Cadastro realizado com sucesso.')
+        if (response.data.resposta === 'Cadastro realizado com sucesso.')
             setLoading('completado');
         else {
-            if(response.data.resposta === 'Tente novamente.'){
+            if (response.data.resposta === 'Tente novamente.') {
                 alert('Tente novamente mais tarde.');
             } else {
                 alert(response.data.resposta);
@@ -92,25 +95,22 @@ export default function Cadastro() {
 
     if (loading === 'completado') {
         return (
-            <Grid container direction="column" justify="space-evenly" alignItems="center">
-                <img src={logo} alt="iapar-logo" className="img-logo" />
-                <Container maxWidth="sm" className="container-form-cadastro p-0">
+            <ContainerMain>
+                <ContainerForm maxWidth="sm" classCSS="p-0">
                     <Alert severity="info">
                         Você precisa acessar seu email para confirmar seu cadastro.
                     </Alert>
-                </Container>
-            </Grid>
+                </ContainerForm>
+            </ContainerMain>
         );
     }
 
     return (
-        <Grid container direction="column" justify="space-evenly" alignItems="center">
-            <img src={logo} alt="iapar-logo" className="img-logo" />
-            <Container maxWidth="sm" className="container-form-cadastro">
+        <ContainerMain>
+            <ContainerForm maxWidth="sm">
                 <FormControl margin="dense" fullWidth>
                     <InputLabel htmlFor="nome-completo">Nome completo</InputLabel>
                     <Input id="nome-completo"
-                        required={true}
                         onChange={(e) => setNome(e.target.value)}
                         error={erros[0] === '' ? false : true}
                         value={nome}
@@ -121,7 +121,6 @@ export default function Cadastro() {
                     <FormControl margin="dense" className="input-lg">
                         <InputLabel htmlFor="cpf">CPF</InputLabel>
                         <Input id="cpf"
-                            required
                             onKeyDown={e => confereNumeroOuBackspace(e) ? setCPF(maskCPF(e.key, cpf)) : null}
                             value={cpf}
                             error={erros[1] === '' ? false : true}
@@ -131,7 +130,6 @@ export default function Cadastro() {
                     <FormControl margin="dense" className="input-md">
                         <InputLabel htmlFor="telefone">Telefone</InputLabel>
                         <Input id="telefone"
-                            required
                             onKeyDown={e => confereNumeroOuBackspace(e) ? setTelefone(maskTelefone(e.key, telefone)) : null}
                             value={telefone}
                             error={erros[2] === '' ? false : true}
@@ -143,7 +141,6 @@ export default function Cadastro() {
                     <FormControl margin="dense" className="input-lg">
                         <InputLabel htmlFor="cidade">Cidade</InputLabel>
                         <Input id="cidade"
-                            required
                             onChange={(e) => setCidade(e.target.value)}
                             value={cidade}
                             error={erros[3] === '' ? false : true}
@@ -153,7 +150,6 @@ export default function Cadastro() {
                     <FormControl margin="dense" className="input-md">
                         <InputLabel htmlFor="cep" >Cep</InputLabel>
                         <Input id="cep"
-                            required
                             onKeyDown={e => confereNumeroOuBackspace(e) ? setCep(maskCEP(e.key, cep)) : null}
                             value={cep}
                             error={erros[4] === '' ? false : true}
@@ -164,7 +160,6 @@ export default function Cadastro() {
                 <FormControl margin="dense" fullWidth>
                     <InputLabel htmlFor="rua">Rua</InputLabel>
                     <Input id="rua"
-                        required
                         onChange={(e) => setRua(e.target.value)}
                         value={rua}
                         error={erros[5] === '' ? false : true}
@@ -175,7 +170,6 @@ export default function Cadastro() {
                     <FormControl margin="dense" className="input-lg">
                         <InputLabel htmlFor="bairro">Bairro</InputLabel>
                         <Input id="bairro"
-                            required
                             onChange={e => setBairro(e.target.value)}
                             value={bairro}
                             error={erros[6] === '' ? false : true}
@@ -185,7 +179,6 @@ export default function Cadastro() {
                     <FormControl margin="dense" className="input-md">
                         <InputLabel htmlFor="numero" >Número</InputLabel>
                         <Input id="numero"
-                            required
                             onKeyDown={e => confereNumeroOuBackspace(e) ? setNumero(apenasNumeros(e.key, numero)) : null}
                             value={numero}
                             error={erros[7] === '' ? false : true}
@@ -196,7 +189,6 @@ export default function Cadastro() {
                 <FormControl margin="dense" fullWidth={true}>
                     <InputLabel htmlFor="email">Email</InputLabel>
                     <Input id="email"
-                        required
                         type="email"
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
@@ -207,7 +199,6 @@ export default function Cadastro() {
                 <FormControl margin="dense" fullWidth>
                     <InputLabel htmlFor="senha">Senha</InputLabel>
                     <Input id="senha"
-                        required
                         type="password"
                         onChange={(e) => setSenha(e.target.value)}
                         value={senha}
@@ -231,7 +222,6 @@ export default function Cadastro() {
                     <FormControl margin="dense" className="input-md ml-input-md">
                         <InputLabel htmlFor="numero-registro_profissional" >Número do Registro</InputLabel>
                         <Input id="numero-registro_profissional"
-                            required
                             onChange={e => setRegistroProfissional(e.target.value)}
                             value={registro_profissional}
                             error={erros[11] === '' ? false : true}
@@ -241,7 +231,6 @@ export default function Cadastro() {
                     <FormControl margin="dense" className="input-md ml-input-md">
                         <InputLabel htmlFor="ano-formatura" >Ano Formatura</InputLabel>
                         <Input id="ano-formatura"
-                            required
                             onKeyDown={e => confereNumeroOuBackspace(e) ? setAnoFormatura(apenasAno(e.key, anoFormatura)) : null}
                             value={anoFormatura}
                             error={erros[12] === '' ? false : true}
@@ -249,13 +238,9 @@ export default function Cadastro() {
                         <SpanErro erro={erros[12]} />
                     </FormControl>
                 </FormGroup>
-                <Button variant="contained" fullWidth className="btn-form" onClick={cadastrarUsuarioTecnico}>
-                    {loading ? <CircularProgress classes="color-circular" disableShrink size="1.7em" /> : 'Cadastrar'}
-                </Button>
-                <div className="container-link-login">
-                    <Link to="/" className="link-login">Já tem senha? Clique aqui e faça login!</Link>
-                </div>
-            </Container>
-        </Grid>
+                <ButtonSubmitForm function={cadastrarUsuarioTecnico} text="Cadastrar" loading={loading} />
+                <LinkRedirect text="Já tem senha? Clique aqui e faça login!" url="/" />
+            </ContainerForm>
+        </ContainerMain>
     );
 }

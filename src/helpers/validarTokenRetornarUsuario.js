@@ -1,6 +1,6 @@
 import api from '../services/api';
 
-export async function validarTokenRetornarUsuario(token, history, setToken){
+export async function validarTokenRetornarUsuario(history, setToken){
     const response = await api.get(`/user/${localStorage.getItem('token')}`);
     if(response.data.tipo_usuario === 'Sessão expirada. Efetue login novamente.'){
         localStorage.removeItem('token');

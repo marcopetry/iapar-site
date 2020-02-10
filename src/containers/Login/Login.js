@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import logo from '../../assets/logo-iapar.png';
 import './Login.css';
-import { Grid, FormControl, InputLabel, Input, Container, Button, CircularProgress } from '@material-ui/core';
+import { FormControl, InputLabel, Input } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import api from '../../services/api';
 import SpanErro from '../../components/span-erro/span-erro';
 import { preencherArrayErrosComVazio } from '../../helpers/preencherArrayErrosComVazio';
 import { validarTokenRetornarUsuario } from '../../helpers/validarTokenRetornarUsuario';
 import TelaEspera from '../../components/tela-espera/tela-espera';
+import ContainerMain from '../../components/container-main/container-main';
+import ContainerForm from '../../components/container-form/container-form';
+import LinkRedirect from '../../components/link/link';
+import ButtonSubmitForm from '../../components/button-submit-form/button-submit-form';
 
 export default function Login({ history }) {
     const [email, setEmail] = useState('');
@@ -17,11 +19,11 @@ export default function Login({ history }) {
     const [erro, setErro] = useState(preencherArrayErrosComVazio());
     const [erroBackend, setErroBackend] = useState('');
     const [token, setToken] = useState(localStorage.getItem('token')); //vem nulo se não existir
+    const alterarToken = e => setToken(e);
 
     useEffect(() => {
         //validar token no backend
         if (token) {
-            const alterarToken = e => setToken(e);
             validarTokenRetornarUsuario(history, alterarToken);
         }
     }, []);
@@ -54,10 +56,9 @@ export default function Login({ history }) {
     }
 
     return (
-        <Grid container direction="column" justify="space-evenly" alignItems="center">
-            <img src={logo} alt="iapar-logo" className="img-logo" />
+        <ContainerMain>
             {erroBackend !== '' && <Alert className="alert-login" severity="error">{erroBackend}</Alert>}
-            <Container maxWidth="xs" className="container-form-cadastro">
+            <ContainerForm maxWidth="xs">
                 <FormControl margin="dense" fullWidth={true}>
                     <InputLabel htmlFor="email">Email ou CPF</InputLabel>
                     <Input id="email"
@@ -79,13 +80,9 @@ export default function Login({ history }) {
                     />
                     <SpanErro erro={erro[1]} />
                 </FormControl>
-                <Button variant="contained" fullWidth className="btn-form" onClick={logar}>
-                    {loading ? <CircularProgress className="color-circular" disableShrink size="1.7em" /> : 'Entrar'}
-                </Button>
-                <div className="container-link-login">
-                    <Link to="/cadastro" classes="link-login">Não tem senha? Clique aqui!</Link>
-                </div>
-            </Container>
-        </Grid>
+                <ButtonSubmitForm text="Entrar" loading={loading} function={logar} />
+                <LinkRedirect url="/cadastro" text="Não tem senha? Clique aqui!" />
+            </ContainerForm>
+        </ContainerMain>
     );
 }
