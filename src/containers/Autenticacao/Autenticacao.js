@@ -42,9 +42,12 @@ export default function Autenticacao({ history }) {
         );
     }
 
+    //função para ajustar padding conforme dados, classe bootstrap
+    const padding = erro !== 'Token reenviado. Acesse seu email para confirmar.' ? 'pt-3' : 'p-0';
+
     return (
         <ContainerMain>
-            <Container className="container-auth" maxWidth="xs">
+            <Container className={"container-auth " + padding} maxWidth="xs">
                 <Alert severity="error" className="alert-auth-error">{erro}</Alert>
                 {
                     erro !== 'Token reenviado. Acesse seu email para confirmar.' &&

@@ -1,14 +1,13 @@
 import React from 'react';
-import logo from '../../assets/logo-iapar.png';
-import { Grid, CircularProgress } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
+import ContainerMain from '../container-main/container-main';
 
 export default function TelaEspera(props){
 
     return (
-        <Grid container direction="column" justify="space-evenly" alignItems="center">
-            <img src={logo} alt="iapar-logo" className="img-logo" />
-            <CircularProgress className="circular-auth" disableShrink size="3em" />
+        <ContainerMain>
+            <CircularProgress className="my-5" style={{ color: '#00a85D'}} disableShrink size="3em" />
             {props.mensagem}
-        </Grid>
+        </ContainerMain>
     );
 }
