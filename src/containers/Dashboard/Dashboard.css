@@ -1,0 +1,22 @@
+.container-dashboard {
+    background-color: #fff;
+    width: 20%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border-right: 1px solid #00a85D;
+}
+
+.container-dashboard-logo {
+    display: flex;
+    justify-content: center;
+}
+
+.container-dashboard img{
+    max-width: 150px;
+    max-height: 150px;
+    margin: 2em 0 !important;
+}

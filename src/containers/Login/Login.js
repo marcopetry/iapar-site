@@ -17,7 +17,7 @@ export default function Login({ history }) {
     const [senha, setSenha] = useState('');
     const [loading, setLoading] = useState(false);
     const [erro, setErro] = useState(preencherArrayErrosComVazio());
-    const [erroBackend, setErroBackend] = useState('');
+    const [erroBackend, setErroBackend] = useState(history.location.state ? history.location.state.tipo_usuario : '');
     const [token, setToken] = useState(localStorage.getItem('token')); //vem nulo se não existir
     const alterarToken = e => setToken(e);
 
@@ -26,7 +26,7 @@ export default function Login({ history }) {
         if (token) {
             validarTokenRetornarUsuario(history, alterarToken);
         }
-    }, []);
+    }, [token, history]);
 
 
     async function logar() {
@@ -46,7 +46,7 @@ export default function Login({ history }) {
             setErroBackend(response.data.tipo_usuario)  
         } else {
             localStorage.setItem('token', response.data.token);
-            history.push('/menu');
+            history.push('/menu', { tipo_usuario: response.data.tipo_usuario });
         }
 
     }
