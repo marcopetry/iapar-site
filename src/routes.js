@@ -6,6 +6,7 @@ import Login from './containers/Login/Login';
 import Autenticacao from './containers/Autenticacao/Autenticacao';
 import Dashboard from './containers/Dashboard/Dashboard';
 import TelaEspera from './components/tela-espera/tela-espera';
+import Teste from './components/teste/teste';
 
 export default function Routes() {
     
@@ -18,7 +19,7 @@ export default function Routes() {
             <Route path="/menu/cadastrar-propriedade/cadastrar-proprietario" component={Cadastro} />
             <Route path="/menu/cadastrar-adm" component={Cadastro} />
             <Route path="/menu/cadastrar-tecnico" component={Cadastro} />
-            <Route path="/menu/teste" component={TelaEspera} />
+            <Route path="/menu/teste" component={Teste} />
         </BrowserRouter>
     );
 }

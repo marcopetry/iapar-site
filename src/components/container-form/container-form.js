@@ -4,16 +4,14 @@ import './container-form.css';
 import { useHistory } from 'react-router-dom';
 
 export default function ContainerForm(props){
-    let margin = "";
+    let defContainer = "";
     const history = useHistory();
 
     //pros componentes ficarem centralizado quando aparecer dashboard na tela
-    if(history.location.pathname !== '/' && history.location.pathname !== '/cadastro'){
-        margin = " m-container-form";
-    }
+    history.location.pathname === '/' || history.location.pathname === '/cadastro' ? defContainer = "container-form" : defContainer = "container-form-dash";
 
     return (
-        <div className={"w-100 " + margin }>
+        <div className={defContainer}>
             <Container maxWidth={props.maxWidth} className={"container-form-cadastro " + props.classCSS}>
                 {props.children}
             </Container>

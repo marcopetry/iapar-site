@@ -13,6 +13,7 @@ import ContainerMain from '../../components/container-main/container-main';
 import ButtonSubmitForm from '../../components/button-submit-form/button-submit-form';
 import LinkRedirect from '../../components/link/link';
 import Feedback from '../../components/feedback.js/feedback';
+import FeedbackComButton from '../../components/feedbackComButton/feedbackComButton';
 
 
 export default function Cadastro(props) {
@@ -124,10 +125,22 @@ export default function Cadastro(props) {
         }
     }
 
-    if (loading === 'completado' && history.location.pathname === '/cadastro') {
-        return (
-            <Feedback msg="Você precisa acessar seu email para confirmar seu cadastro." />
-        );
+    if (loading === 'completado') {
+        if(history.location.pathname === '/cadastro'){
+            return (
+                <Feedback msg="Você precisa acessar seu email para confirmar seu cadastro." />
+            );
+        }
+
+        if(history.location.pathname === '/menu/cadastrar-propriedade/cadastrar-proprietario') {
+            setTimeout(() => history.push('/menu/cadastrar-propriedade/selecionar-tecnicos'), 5000);
+            return (
+                <FeedbackComButton textButton="Avançar"
+                    msg="Cadastro realizado com sucesso. O proprietário precisa acessar o email dele para confirmar seu cadastro."
+                    function={() => history.push('/menu/cadastrar-propriedade/selecionar-tecnicos')}
+                />
+            );
+        }
     }
 
     return (

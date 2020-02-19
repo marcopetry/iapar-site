@@ -8,7 +8,7 @@ export default function ContainerMain(props) {
 
     if(history.location.pathname !== '/' && history.location.pathname !== '/cadastro'){
         return (
-            <Grid container direction="row">
+            <Grid container direction="row" className="h-100 position-abolute">
                 {props.children}
             </Grid>    
         );
@@ -21,5 +21,3 @@ export default function ContainerMain(props) {
         </Grid>
     );
 }
-
-//(history.location.pathname === '/' || history.location.pathname === '/cadastro') &&

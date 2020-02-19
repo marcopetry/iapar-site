@@ -1,10 +1,23 @@
+.container-form {
+    width: 100%;
+    margin-top: 2em !important;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.container-form-dash {
+    margin-left: 20% !important;
+    width: 80%;
+    position: absolute;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
 .container-form-cadastro {
     background-color: #fff;
-    margin-top: 2em !important;
     border-radius: 0.3em;
     border: solid 0.06em #00a85D;
 }
 
-.m-container-form {
-    margin-left: 20% !important;
-}
