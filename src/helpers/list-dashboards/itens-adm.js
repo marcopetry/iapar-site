@@ -5,5 +5,10 @@ export const itensDashboardAdm = [
         text: 'Cadastrar técnico', 
         url: '/menu/cadastrar-tecnico',
         icon: add_person
+    },
+    {
+        text: 'Cadastrar administrador', 
+        url: '/menu/cadastrar-adm',
+        icon: add_person
     }
 ]

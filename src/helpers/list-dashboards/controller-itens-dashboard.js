@@ -56,8 +56,8 @@ export default function returnItensDashboard(tipoMenu){
 }
 
 export function defineMenu(tipoUsuario, pathname){
-    console.log(pathname);
-    
+    //verificar o caminho que inseriu na url
+
     if(tipoUsuario === '') return;
 
     if(pathname.indexOf('inclusoes-rapidas') !== -1) {

@@ -22,7 +22,7 @@ export default function Login({ history }) {
     const alterarToken = e => setToken(e);
 
     useEffect(() => {
-        //validar token no backend
+        //validar token no backend e deleta se for inválido
         if (token) {
             validarTokenRetornarUsuario(history, alterarToken);
         }

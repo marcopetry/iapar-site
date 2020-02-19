@@ -1,4 +1,4 @@
-export function validarInformacoesCadastro(dados){
+export function validarInformacoesCadastro(dados, pathname){
     let erros = [];
     
     //verifica se os campos estão preenchidos
@@ -24,13 +24,27 @@ export function validarInformacoesCadastro(dados){
         dados.email.indexOf('@') === -1 || dados.email.indexOf('.') === -1 ? erros.push('Email inválido') : erros.push('')
     );
     
-    dados.senha === '' ? erros.push('Este campo é obrigatório.') : (
-        dados.senha.length < 6 ? erros.push('Senha precisa ter no mínimo 6 caracteres.') : erros.push('')
-    );
+    if(pathname === '/cadastro'){
+        dados.senha === '' ? erros.push('Este campo é obrigatório.') : (
+            dados.senha.length < 6 ? erros.push('Senha precisa ter no mínimo 6 caracteres.') : erros.push('')
+        );
+    } else {
+        erros.push('');
+    }
 
-    dados.tipo_registro === '' ? erros.push('Este campo é obrigatório.') : erros.push('');
-    dados.registro_profissional === '' ? erros.push('Este campo é obrigatório.') : erros.push('');
-    dados.ano_formatura === '' ? erros.push('Este campo é obrigatório.') : erros.push('');
+    if(pathname === '/cadastro' || pathname === '/menu/cadastrar-tecnico'){
+        dados.tipo_registro === '' ? erros.push('Este campo é obrigatório.') : erros.push('');
+        dados.registro_profissional === '' ? erros.push('Este campo é obrigatório.') : erros.push('');
+        dados.ano_formatura === '' ? erros.push('Este campo é obrigatório.') : erros.push('');
+    } else {
+        erros.push('');
+        erros.push('');
+        erros.push('');
+    }
+
+    pathname === '/menu/cadastrar-propriedade/cadastrar-proprietario' && dados.cnpj === '' ? 
+        erros.push('Este campo é obrigatório.') : 
+        erros.push('');
 
     return erros;
 }

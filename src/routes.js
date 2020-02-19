@@ -15,7 +15,10 @@ export default function Routes() {
             <Route path="/cadastro" component={Cadastro}/>
             <Route path="/auth/:token" component={Autenticacao} />
             <Route path="/menu" component={Dashboard} />
-            <Route path="/teste" component={TelaEspera} />
+            <Route path="/menu/cadastrar-propriedade/cadastrar-proprietario" component={Cadastro} />
+            <Route path="/menu/cadastrar-adm" component={Cadastro} />
+            <Route path="/menu/cadastrar-tecnico" component={Cadastro} />
+            <Route path="/menu/teste" component={TelaEspera} />
         </BrowserRouter>
     );
 }

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import './Cadastro.css';
-import { Select, FormControl, InputLabel, Input, FormGroup, MenuItem } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
+import { Select, FormControl, InputLabel, Input, FormGroup, MenuItem, Checkbox } from '@material-ui/core';
 import api from '../../services/api';
 import SpanErro from '../../components/span-erro/span-erro';
 import { validarInformacoesCadastro } from '../../validators/validator-cadastro-usuario';
@@ -12,9 +12,10 @@ import ContainerForm from '../../components/container-form/container-form';
 import ContainerMain from '../../components/container-main/container-main';
 import ButtonSubmitForm from '../../components/button-submit-form/button-submit-form';
 import LinkRedirect from '../../components/link/link';
+import Feedback from '../../components/feedback.js/feedback';
 
 
-export default function Cadastro() {
+export default function Cadastro(props) {
     const [nome, setNome] = useState('');
     const [cpf, setCPF] = useState('');
     const [telefone, setTelefone] = useState('');
@@ -28,8 +29,37 @@ export default function Cadastro() {
     const [registro_profissional, setRegistroProfissional] = useState('');
     const [tipo_registro, setTiporegistro] = useState('');
     const [anoFormatura, setAnoFormatura] = useState('');
+    const [cnpj, setCNPJ] = useState('');
     const [loading, setLoading] = useState(false);
     const [erros, setErros] = useState(preencherArrayErrosComVazio());
+    const [tipo_usuario, setTipoUsuario] = useState('');
+    const history = useHistory();
+
+    useEffect(() => {
+        if (history.location.pathname === '/cadastro') {
+            setTipoUsuario('tecnico');
+            return;
+        }
+
+        if (history.location.pathname === '/menu/cadastrar-propriedade/cadastrar-proprietario') {
+            setTipoUsuario('proprietario');
+            setSenha('123456');
+            return;
+        }
+
+        if (history.location.pathname === '/menu/cadastrar-tecnico') {
+            setTipoUsuario('tecnico');
+            setSenha('123456');
+            return;
+        }
+
+        if (history.location.pathname === '/menu/cadastrar-adm') {
+            setTipoUsuario('admin');
+            setSenha('123456');
+            return;
+        }
+
+    }, [history.location.pathname]);
 
     async function cadastrarUsuarioTecnico() {
         const dados = {
@@ -46,7 +76,8 @@ export default function Cadastro() {
             tipo_registro,
             registro_profissional,
             ano_formatura: anoFormatura,
-            tipo_usuario: 'tecnico',
+            tipo_usuario,
+            cnpj
         }
         /*
             validators
@@ -54,7 +85,7 @@ export default function Cadastro() {
             para chamar o backend, pois setar o estado leva um tempo e não consigo pegar pra validar.
             Se tiver um erro ele retorna tela do formulário.
         */
-        const errosValidados = validarInformacoesCadastro(dados);
+        const errosValidados = validarInformacoesCadastro(dados, history.location.pathname);
         setErros(errosValidados);
         if (errosValidados.some(elemento => elemento !== '')) {
             return;
@@ -75,7 +106,8 @@ export default function Cadastro() {
             tipo_registro,
             registro_profissional,
             ano_formatura: anoFormatura,
-            tipo_usuario: 'tecnico',
+            tipo_usuario,
+            cnpj
         });
 
         //backend retorna array de erros, caso vazio, completado
@@ -92,15 +124,9 @@ export default function Cadastro() {
         }
     }
 
-    if (loading === 'completado') {
+    if (loading === 'completado' && history.location.pathname === '/cadastro') {
         return (
-            <ContainerMain>
-                <ContainerForm maxWidth="sm" classCSS="p-0">
-                    <Alert severity="info">
-                        Você precisa acessar seu email para confirmar seu cadastro.
-                    </Alert>
-                </ContainerForm>
-            </ContainerMain>
+            <Feedback msg="Você precisa acessar seu email para confirmar seu cadastro." />
         );
     }
 
@@ -195,50 +221,80 @@ export default function Cadastro() {
                     />
                     <SpanErro erro={erros[8]} />
                 </FormControl>
-                <FormControl margin="dense" fullWidth>
-                    <InputLabel htmlFor="senha">Senha</InputLabel>
-                    <Input id="senha"
-                        type="password"
-                        onChange={(e) => setSenha(e.target.value)}
-                        value={senha}
-                        error={erros[9] === '' ? false : true}
-                    />
-                    <SpanErro erro={erros[9]} />
-                </FormControl>
-                <FormGroup row={true}>
-                    <FormControl margin="dense" className="input-md">
-                        <InputLabel htmlFor="tipo-registro_profissional" >Tipo Registro</InputLabel>
-                        <Select id="tipo-registro_profissional"
-                            onChange={e => setTiporegistro(e.target.value)}
-                            value={tipo_registro}
-                            error={erros[10] === '' ? false : true}
-                        >
-                            <MenuItem value="CREA">CREA</MenuItem>
-                            <MenuItem value="CRMV">CRMV</MenuItem>
-                        </Select>
-                        <SpanErro erro={erros[10]} />
-                    </FormControl>
-                    <FormControl margin="dense" className="input-md ml-input-md">
-                        <InputLabel htmlFor="numero-registro_profissional" >Número do Registro</InputLabel>
-                        <Input id="numero-registro_profissional"
-                            onChange={e => setRegistroProfissional(e.target.value)}
-                            value={registro_profissional}
-                            error={erros[11] === '' ? false : true}
+                {
+                    history.location.pathname === '/cadastro' &&
+                    <FormControl margin="dense" fullWidth>
+                        <InputLabel htmlFor="senha">Senha</InputLabel>
+                        <Input id="senha"
+                            type="password"
+                            onChange={(e) => setSenha(e.target.value)}
+                            value={senha}
+                            error={erros[9] === '' ? false : true}
                         />
-                        <SpanErro erro={erros[11]} />
+                        <SpanErro erro={erros[9]} />
                     </FormControl>
-                    <FormControl margin="dense" className="input-md ml-input-md">
-                        <InputLabel htmlFor="ano-formatura" >Ano Formatura</InputLabel>
-                        <Input id="ano-formatura"
-                            onKeyDown={e => confereNumeroOuBackspace(e) ? setAnoFormatura(apenasAno(e.key, anoFormatura)) : null}
-                            value={anoFormatura}
-                            error={erros[12] === '' ? false : true}
-                        />
-                        <SpanErro erro={erros[12]} />
-                    </FormControl>
-                </FormGroup>
+                }
+                {
+                    tipo_usuario === 'tecnico' &&
+                    <FormGroup row={true}>
+                        <FormControl margin="dense" className="input-md">
+                            <InputLabel htmlFor="tipo-registro_profissional" >Tipo Registro</InputLabel>
+                            <Select id="tipo-registro_profissional"
+                                onChange={e => setTiporegistro(e.target.value)}
+                                value={tipo_registro}
+                                error={erros[10] === '' ? false : true}
+                            >
+                                <MenuItem value="CREA">CREA</MenuItem>
+                                <MenuItem value="CRMV">CRMV</MenuItem>
+                            </Select>
+                            <SpanErro erro={erros[10]} />
+                        </FormControl>
+                        <FormControl margin="dense" className="input-md ml-input-md">
+                            <InputLabel htmlFor="numero-registro_profissional" >Número do Registro</InputLabel>
+                            <Input id="numero-registro_profissional"
+                                onChange={e => setRegistroProfissional(e.target.value)}
+                                value={registro_profissional}
+                                error={erros[11] === '' ? false : true}
+                            />
+                            <SpanErro erro={erros[11]} />
+                        </FormControl>
+                        <FormControl margin="dense" className="input-md ml-input-md">
+                            <InputLabel htmlFor="ano-formatura" >Ano Formatura</InputLabel>
+                            <Input id="ano-formatura"
+                                onKeyDown={e => confereNumeroOuBackspace(e) ? setAnoFormatura(apenasAno(e.key, anoFormatura)) : null}
+                                value={anoFormatura}
+                                error={erros[12] === '' ? false : true}
+                            />
+                            <SpanErro erro={erros[12]} />
+                        </FormControl>
+                    </FormGroup>
+                }
+                {
+                    tipo_usuario === 'proprietario' &&
+                    <div className="container-input-cnpj">
+                        <FormControl margin="dense" className="input-lg">
+                            <InputLabel htmlFor="cnpj" >CNPJ</InputLabel>
+                            <Input id="cnpj"
+                                // onKeyDown={e => confereNumeroOuBackspace(e) ? setCNPJ(apenasAno(e.key, anoFormatura)) : null}
+                                onChange={e => setCNPJ(e.target.value)}
+                                value={cnpj}
+                                error={erros[13] === '' ? false : true}
+                                disabled={cnpj === 'Não possuo.' ? true : false}
+                            />
+                            <SpanErro erro={erros[13]} />
+                        </FormControl>
+                        <div className="container-checkbox-cnpj">
+                            <Checkbox value={cnpj} 
+                                size="medium" 
+                                onChange={() => cnpj !== 'Não possuo.' ? setCNPJ('Não possuo.') : setCNPJ('')}
+                                checked={cnpj === 'Não possuo.' ? true : false}    
+                            />
+                            <span id="check-cnpj">Não possuo CNPJ</span>
+                        </div>
+                    </div>
+                }
                 <ButtonSubmitForm function={cadastrarUsuarioTecnico} text="Cadastrar" loading={loading} />
-                <LinkRedirect text="Já tem senha? Clique aqui e faça login!" url="/" />
+                {history.location.pathname === '/cadastro' && <LinkRedirect text="Já tem senha? Clique aqui e faça login!" url="/" />}
             </ContainerForm>
         </ContainerMain>
     );

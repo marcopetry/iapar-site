@@ -3,5 +3,8 @@
     margin-top: 2em !important;
     border-radius: 0.3em;
     border: solid 0.06em #00a85D;
-    max-height: 60%;
+}
+
+.m-container-form {
+    margin-left: 20% !important;
 }
