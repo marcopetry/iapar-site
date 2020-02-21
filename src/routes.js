@@ -5,8 +5,9 @@ import Cadastro from './containers/Cadastro/Cadastro';
 import Login from './containers/Login/Login';
 import Autenticacao from './containers/Autenticacao/Autenticacao';
 import Dashboard from './containers/Dashboard/Dashboard';
-import TelaEspera from './components/tela-espera/tela-espera';
+//import TelaEspera from './components/tela-espera/tela-espera';
 import Teste from './components/teste/teste';
+import SelecionarTecnico from './containers/SelecionarTecnico/SelecionarTecnico';
 
 export default function Routes() {
     
@@ -17,6 +18,7 @@ export default function Routes() {
             <Route path="/auth/:token" component={Autenticacao} />
             <Route path="/menu" component={Dashboard} />
             <Route path="/menu/cadastrar-propriedade/cadastrar-proprietario" component={Cadastro} />
+            <Route path="/menu/cadastrar-propriedade/selecionar-tecnicos" component={SelecionarTecnico} />
             <Route path="/menu/cadastrar-adm" component={Cadastro} />
             <Route path="/menu/cadastrar-tecnico" component={Cadastro} />
             <Route path="/menu/teste" component={Teste} />

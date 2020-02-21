@@ -12,7 +12,7 @@ import ContainerForm from '../../components/container-form/container-form';
 import ContainerMain from '../../components/container-main/container-main';
 import ButtonSubmitForm from '../../components/button-submit-form/button-submit-form';
 import LinkRedirect from '../../components/link/link';
-import Feedback from '../../components/feedback.js/feedback';
+import Feedback from '../../components/feedback/feedback';
 import FeedbackComButton from '../../components/feedbackComButton/feedbackComButton';
 
 
