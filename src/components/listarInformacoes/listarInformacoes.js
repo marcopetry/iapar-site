@@ -20,6 +20,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import ButtonSubmitForm from '../button-submit-form/button-submit-form';
+import { Container, Grid } from '@material-ui/core';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -308,20 +310,32 @@ export default function ListarInformacoes(props) {
             </TableBody>
           </Table>
         </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={props.rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
-      </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
+          <Container maxWidth="xs" className="mr-0 my-0">
+            <ButtonSubmitForm loading={false} text="Selecionar" function={() => console.log(selected)}/>
+          </Container>
+        </Paper>
+        <Grid alignContent="space-between" direction="row" justify="space-between" container>
+          <div className="w-25">
+            <FormControlLabel
+              control={<Switch checked={dense} onChange={handleChangeDense} />}
+              label="Dense padding"
+              className="width-container-end-table"
+            />
+          </div>
+          <div className="w-50">
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={props.rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+              labelRowsPerPage="Dados por página"
+              className="width-container-end-table"
+            />
+          </div>
+        </Grid>
     </div>
   );
 }
