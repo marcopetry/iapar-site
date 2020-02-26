@@ -5,9 +5,10 @@ import api from '../../services/api';
 import ListarInformacoes from '../../components/listarInformacoes/listarInformacoes';
 import { headerListTecnicos } from '../../helpers/itensTable/headersTables';
 import { formatarDadosTecnico } from '../../helpers/itensTable/formatdatesTable';
+import FeedbackComButton from '../../components/feedbackComButton/feedbackComButton';
 
 
-export default function SelecionarTecnico() {
+export default function SelecionarTecnico({ history }) {
     const [tecnicos, setTecnicos] = useState([]);
 
     useEffect(() => {
@@ -21,7 +22,29 @@ export default function SelecionarTecnico() {
         }
         buscarTecnicos();
 
-    }, [])
+    }, []);
+
+    //recebe como parãmetro um array com os selecionados na tabela
+    const selecionarTecnicos = tecnicosSelecionados => {
+        if(tecnicosSelecionados.length === 0){
+            alert('Você precisa selecionar os técnicos para a propriedade.');
+            return;
+        }
+        history.push('/menu/cadastrar-propriedade/dados-propriedade', {
+            id_proprietario: history.location.state.id_proprietario,
+            id_tecnicos: tecnicosSelecionados
+        });
+    };
+
+    if(!history.location.state){
+        return (
+            <FeedbackComButton 
+                msg="Você precisa cadastrar um proprietário antes de selecionar técnicos." 
+                textButton="Cadastrar proprietário"
+                function={() => history.push('/menu/cadastrar-propriedade/cadastrar-proprietario')}
+            />
+        );
+    }
 
     return (
         <ContainerMain>
@@ -32,6 +55,7 @@ export default function SelecionarTecnico() {
                     rows={tecnicos}
                     title="Selecione técnicos"
                     orderBy="nome"
+                    function={selecionarTecnicos}
                 />
             </ContainerForm>
         </ContainerMain>

@@ -1,7 +1,7 @@
 export function formatarDadosTecnico(listaTecnicos){
     let dadosFormatados = [];
     listaTecnicos.map(tecnico => {
-        dadosFormatados.push({
+        return dadosFormatados.push({
             id: tecnico.id,
             nome: tecnico.nome,
             email: tecnico.email,

@@ -8,7 +8,7 @@ import contacts from '../../assets/contacts.svg';
 export const itensTecnico = [
     {
         text: 'Cadastrar Propriedadde',
-        url: '/menu/cadastrar-propriedade',
+        url: '/menu/cadastrar-propriedade/cadastrar-proprietario',
         icon: add_location,
     }
 ];

@@ -311,10 +311,10 @@ export default function ListarInformacoes(props) {
           </Table>
         </TableContainer>
           <Container maxWidth="xs" className="mr-0 my-0">
-            <ButtonSubmitForm loading={false} text="Selecionar" function={() => console.log(selected)}/>
+            <ButtonSubmitForm loading={false} text="Selecionar" function={() => props.function(selected)}/>
           </Container>
         </Paper>
-        <Grid alignContent="space-between" direction="row" justify="space-between" container>
+        <Grid alignContent="space-between" direction="row" justify="space-between" alignItems="center" container>
           <div className="w-25">
             <FormControlLabel
               control={<Switch checked={dense} onChange={handleChangeDense} />}

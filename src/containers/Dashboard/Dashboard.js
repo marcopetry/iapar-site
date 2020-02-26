@@ -6,10 +6,10 @@ import retornaItensDashboard, { defineMenu } from '../../helpers/list-dashboards
 import api from '../../services/api';
 import TelaEspera from '../../components/tela-espera/tela-espera';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { useHistory } from 'react-router-dom';
+//import { useHistory } from 'react-router-dom';
 
-export default function Dashboard(props) {
-    const history = useHistory();
+export default function Dashboard({ history }) {
+    //const history = useHistory();
     const [itensDashboard, setItensDashboard] = useState([]);
     const [tipoUsuario, setTipoUsuario] = useState(history.location.state ? history.location.state.tipo_usuario : '');
     const [token, setToken] = useState(localStorage.getItem('token'));
@@ -54,10 +54,12 @@ export default function Dashboard(props) {
 
     return (
         <div className="container-dashboard">
-            <div className="container-dashboard-logo">
-                <img src={logo} alt="iapar-sistema" />
-            </div>
-            <ListItemDashboard listItens={itensDashboard} history={history} />
+            <Scrollbars>
+                <div className="container-dashboard-logo">
+                    <img src={logo} alt="iapar-sistema" />
+                </div>
+                <ListItemDashboard listItens={itensDashboard} history={history} />
+            </Scrollbars>
         </div>
     );
 }

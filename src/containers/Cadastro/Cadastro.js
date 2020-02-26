@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import './Cadastro.css';
 import { Select, FormControl, InputLabel, Input, FormGroup, MenuItem, Checkbox } from '@material-ui/core';
 import api from '../../services/api';
@@ -16,7 +15,7 @@ import Feedback from '../../components/feedback/feedback';
 import FeedbackComButton from '../../components/feedbackComButton/feedbackComButton';
 
 
-export default function Cadastro(props) {
+export default function Cadastro({ history }) {
     const [nome, setNome] = useState('');
     const [cpf, setCPF] = useState('');
     const [telefone, setTelefone] = useState('');
@@ -34,7 +33,6 @@ export default function Cadastro(props) {
     const [loading, setLoading] = useState(false);
     const [erros, setErros] = useState(preencherArrayErrosComVazio());
     const [tipo_usuario, setTipoUsuario] = useState('');
-    const history = useHistory();
 
     useEffect(() => {
         if (history.location.pathname === '/cadastro') {
@@ -113,7 +111,7 @@ export default function Cadastro(props) {
 
         //backend retorna array de erros, caso vazio, completado
         if (response.data.resposta === 'Cadastro realizado com sucesso.')
-            setLoading('completado');
+            setLoading(response);
         else {
             if (response.data.resposta === 'Tente novamente.') {
                 alert('Tente novamente mais tarde.');
@@ -125,7 +123,7 @@ export default function Cadastro(props) {
         }
     }
 
-    if (loading === 'completado') {
+    if (typeof loading !== 'boolean'  && loading.data.resposta === 'Cadastro realizado com sucesso.') {
         if(history.location.pathname === '/cadastro'){
             return (
                 <Feedback msg="Você precisa acessar seu email para confirmar seu cadastro." />
@@ -133,11 +131,10 @@ export default function Cadastro(props) {
         }
 
         if(history.location.pathname === '/menu/cadastrar-propriedade/cadastrar-proprietario') {
-            setTimeout(() => history.push('/menu/cadastrar-propriedade/selecionar-tecnicos'), 5000);
             return (
                 <FeedbackComButton textButton="Avançar"
                     msg="Cadastro realizado com sucesso. O proprietário precisa acessar o email dele para confirmar seu cadastro."
-                    function={() => history.push('/menu/cadastrar-propriedade/selecionar-tecnicos')}
+                    function={() => history.push('/menu/cadastrar-propriedade/selecionar-tecnicos', { id_proprietario: loading.data.id })}
                 />
             );
         }

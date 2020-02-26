@@ -23,7 +23,7 @@ export default function ListItemDashboard(props){
         <ul className="container-list-itens">
             {props.listItens.map(item => {
                 return (
-                    <li key={item.url} id={item.url} onClick={() => props.history.push(item.url)} onLoad={atualizarLinkAtual}>
+                    <li key={item.url} id={item.url} onClick={() => props.history.push(item.url, props.history.location.state)} onLoad={atualizarLinkAtual}>
                         <div>
                             <img src={item.icon} alt="dashboard-iapar"/>
                         </div>
