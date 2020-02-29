@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import './Autenticacao.css';
 import { FormControl, Input, InputLabel, Container } from '@material-ui/core';
-import api from '../../services/api';
 import { Alert } from '@material-ui/lab';
 import SpanErro from '../../components/span-erro/span-erro';
 import TelaEspera from '../../components/tela-espera/tela-espera';
 import ContainerMain from '../../components/container-main/container-main';
 import ButtonSubmitForm from '../../components/button-submit-form/button-submit-form';
 import LinkRedirect from '../../components/link/link';
+import api from '../../services/api';
 
 export default function Autenticacao({ history }) {
     const token = history.location.pathname.split('/')[2];
@@ -62,7 +62,7 @@ export default function Autenticacao({ history }) {
                                 />
                                 <SpanErro erro={erroEmail} />
                             </FormControl>
-                            <ButtonSubmitForm text="Reenviar verificador" loading={loading} function={reenviarTokenVerificacao} />
+                            <ButtonSubmitForm text="Reenviar verificador" loading={loading} funcao={reenviarTokenVerificacao} />
                             <LinkRedirect url="/cadastro" text="Clique aqui para cadastrar-se." />
                         </>
                     )

@@ -1,0 +1,25 @@
+.alert-confirmacao {
+    border: solid 0.06em var(--verde-primario);
+}
+
+.container-btn-tela-confirmacao {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-tela-confirmacao{
+    width: 40% !important;
+}
+
+.btn-cancelar {
+    background-color: white !important;
+    color: var(--roxo-primario) !important;
+    border: solid 0.06em var(--verde-primario) !important;
+    font-weight: bold !important;
+    transition: background-color 1s linear 1s;
+}
+
+.btn-cancelar:hover {
+    background-color: var(--cinza-hover) !important;
+    opacity: 0.85;
+}

@@ -15,12 +15,12 @@ export default function CadastrarPropriedade({ history }) {
     const [nome_propriedade, setNomePropriedade] = useState('');
     const [longitude, setLongitude] = useState('');
     const [latitude, setLatitude] = useState('');
-    const [qtd_pessoas_envolvidas_atividade, setQtdPessoasEnvolvidas] = useState('');
     const [data_inicio_programa, setDataInicio] = useState('');
     const [data_proxima_visita, setDataProximaVisita] = useState('');
     const [erros, setErros] = useState(preencherArrayErrosComVazio());
     const [loading, setLoading] = useState(false);
 
+    console.log(history);
     async function cadastrarPropriedade() {
         const dadosPropriedade = {
             id_proprietario: history.location.state.id_proprietario,
@@ -30,7 +30,7 @@ export default function CadastrarPropriedade({ history }) {
             latitude,
             data_inicio_programa,
             data_proxima_visita,
-            qtd_pessoas_envolvidas_atividade
+            token: localStorage.getItem('token')
         }
 
         const errosValidados = validatorCadastroPropriedade(dadosPropriedade);
@@ -40,6 +40,7 @@ export default function CadastrarPropriedade({ history }) {
         }
         setLoading(true);
         const response = await api.post('/propriedade', dadosPropriedade);
+        console.log(response)
         if(response.data.message === "Propriedade cadastrada com sucesso."){
             setLoading(response.data.message);
         }else {
@@ -49,7 +50,7 @@ export default function CadastrarPropriedade({ history }) {
 
 
     //tratamento para chegar aqui com todas as informações necessárias para completar o cadastro
-    if (!history.location.state || !history.location.state.id_tecnicos) {
+    if (!history.location.state?.id_tecnicos) {
         let msgAviso, functionButton, textButton;
         if (!history.location.state) {
             msgAviso = "Você precisa cadastrar um proprietário antes de cadastrar os dados da propriedade.";
@@ -64,7 +65,7 @@ export default function CadastrarPropriedade({ history }) {
             <FeedbackComButton
                 msg={msgAviso}
                 textButton={textButton}
-                function={functionButton}
+                funcao={functionButton}
             />
         );
     }
@@ -74,7 +75,7 @@ export default function CadastrarPropriedade({ history }) {
             <FeedbackComButton
                 msg={loading}
                 textButton="Fazer Inventário"
-                function={() => history.push('/menu/cadastrar-propriedade/inventario-recursos')}
+                funcao={() => history.push('/menu/cadastrar-propriedade/inventario-recursos')}
             />
         );
     }
@@ -129,7 +130,7 @@ export default function CadastrarPropriedade({ history }) {
                     </FormControl>
                 </FormGroup>
                 <FormGroup row={true}>
-                    <FormControl margin="dense" className="w-25 mr-10">
+                    <FormControl margin="dense" className="w-45 mr-10">
                         <InputLabel htmlFor="longitude" >Longitude</InputLabel>
                         <Input id="longitude"
                             onChange={e => setLongitude(e.target.value)}
@@ -139,7 +140,7 @@ export default function CadastrarPropriedade({ history }) {
                         />
                         <SpanErro erro={erros[3]} />
                     </FormControl>
-                    <FormControl margin="dense" className="w-25 mr-10">
+                    <FormControl margin="dense" className="w-45">
                         <InputLabel htmlFor="latitude" >Latitude</InputLabel>
                         <Input id="latitude"
                             onChange={e => setLatitude(e.target.value)}
@@ -149,19 +150,9 @@ export default function CadastrarPropriedade({ history }) {
                         />
                         <SpanErro erro={erros[4]} />
                     </FormControl>
-                    <FormControl margin="dense" className="w-30">
-                        <InputLabel htmlFor="qtd-pessoas-envolvidas" className="pb-5">Qtd Trabalhadores</InputLabel>
-                        <Input id="qtd-pessoas-envolvidas"
-                            onChange={e => setQtdPessoasEnvolvidas(e.target.value)}
-                            value={qtd_pessoas_envolvidas_atividade}
-                            error={erros[5] !== '' ? true : false}
-                            type="number"
-                        />
-                        <SpanErro erro={erros[5]} />
-                    </FormControl>
                     <ButtonSubmitForm
                         text="Cadastrar"
-                        function={cadastrarPropriedade}
+                        funcao={cadastrarPropriedade}
                         loading={loading}
                     />
                 </FormGroup>

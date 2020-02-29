@@ -6,7 +6,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #00a85D;
+    border-bottom: 1px solid var(--verde-primario);
 }
 
 .container-list-itens li {
@@ -14,7 +14,7 @@
     width: 100%;
     border-style: solid;
     border-width: 1px 0 0 0;
-    border-color: #00a85D;
+    border-color: var(--verde-primario);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -23,11 +23,11 @@
 }
 
 .container-list-itens li:hover {
-    background-color: #e5e5e5;
+    background-color: var(--cinza-hover);
 }
 
 .list-item-checked {
-    background-color: #a5a5a5;
+    background-color: var(--cinza-marcacao);
 }
 
 .container-text-dashboard {

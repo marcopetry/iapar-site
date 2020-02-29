@@ -9,6 +9,7 @@ import Dashboard from './containers/Dashboard/Dashboard';
 import Teste from './components/teste/teste';
 import SelecionarTecnico from './containers/SelecionarTecnico/SelecionarTecnico';
 import CadastrarPropriedade from './containers/CadastrarPropriedade/CadastrarPropriedade';
+import Logout from './containers/Logout/Logout';
 
 export default function Routes() {
     
@@ -24,6 +25,7 @@ export default function Routes() {
             <Route path="/menu/cadastrar-adm" component={Cadastro} />
             <Route path="/menu/cadastrar-tecnico" component={Cadastro} />
             <Route path="/menu/teste" component={Teste} />
+            <Route path="/menu/sair" component={Logout} />
         </BrowserRouter>
     );
 }

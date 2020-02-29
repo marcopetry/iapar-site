@@ -1,11 +1,19 @@
 import React, { useEffect } from 'react';
 import './list-item-dashboard.css';
 
-export default function ListItemDashboard(props){
+/**
+ * Cuida da navegação e aparência da dashboard, mudando a url e persistindo 
+ * alguma coisa que estiver no history location state
+ * Propriedades:
+ *      history: recebe o history para navegar e marcar o item usado,
+ *      listItens: itens que serão renderizados. É um array com json, 
+ * arquivo está nos helpers
+ */
+export default function ListItemDashboard({history, listItens}){
 
     useEffect(() => {
         atualizarLinkAtual();
-    }, [props.history.location.pathname]);
+    }, [history.location.pathname]);
 
     //muda background do item selecionado
     function atualizarLinkAtual(){
@@ -13,7 +21,7 @@ export default function ListItemDashboard(props){
         if(disChecked[0]) {
             disChecked[0].classList.remove('list-item-checked');
         } 
-        const linkAtual = document.getElementById(props.history.location.pathname);
+        const linkAtual = document.getElementById(history.location.pathname);
         if(linkAtual){
             linkAtual.classList.add('list-item-checked');
         }
@@ -21,9 +29,9 @@ export default function ListItemDashboard(props){
 
     return (
         <ul className="container-list-itens">
-            {props.listItens.map(item => {
+            {listItens.map(item => {
                 return (
-                    <li key={item.url} id={item.url} onClick={() => props.history.push(item.url, props.history.location.state)} onLoad={atualizarLinkAtual}>
+                    <li key={item.url} id={item.url} onClick={() => history.push(item.url, history.location.state)} onLoad={atualizarLinkAtual}>
                         <div>
                             <img src={item.icon} alt="dashboard-iapar"/>
                         </div>

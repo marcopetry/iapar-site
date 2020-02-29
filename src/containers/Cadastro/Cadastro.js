@@ -134,7 +134,7 @@ export default function Cadastro({ history }) {
             return (
                 <FeedbackComButton textButton="Avançar"
                     msg="Cadastro realizado com sucesso. O proprietário precisa acessar o email dele para confirmar seu cadastro."
-                    function={() => history.push('/menu/cadastrar-propriedade/selecionar-tecnicos', { id_proprietario: loading.data.id })}
+                    funcao={() => history.push('/menu/cadastrar-propriedade/selecionar-tecnicos', { id_proprietario: loading.data.id })}
                 />
             );
         }
@@ -303,7 +303,7 @@ export default function Cadastro({ history }) {
                         </div>
                     </div>
                 }
-                <ButtonSubmitForm function={cadastrarUsuarioTecnico} text="Cadastrar" loading={loading} />
+                <ButtonSubmitForm funcao={cadastrarUsuarioTecnico} text="Cadastrar" loading={loading} />
                 {history.location.pathname === '/cadastro' && <LinkRedirect text="Já tem senha? Clique aqui e faça login!" url="/" />}
             </ContainerForm>
         </ContainerMain>

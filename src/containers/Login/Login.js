@@ -5,7 +5,7 @@ import { Alert } from '@material-ui/lab';
 import api from '../../services/api';
 import SpanErro from '../../components/span-erro/span-erro';
 import { preencherArrayErrosComVazio } from '../../helpers/preencherArrayErrosComVazio';
-import { validarTokenRetornarUsuario } from '../../helpers/validarTokenRetornarUsuario';
+import { validarTokenRetornarUsuario } from '../../validators/validarTokenRetornarUsuario';
 import TelaEspera from '../../components/tela-espera/tela-espera';
 import ContainerMain from '../../components/container-main/container-main';
 import ContainerForm from '../../components/container-form/container-form';
@@ -17,7 +17,7 @@ export default function Login({ history }) {
     const [senha, setSenha] = useState('');
     const [loading, setLoading] = useState(false);
     const [erro, setErro] = useState(preencherArrayErrosComVazio());
-    const [erroBackend, setErroBackend] = useState(history.location.state ? history.location.state.tipo_usuario : '');
+    const [erroBackend, setErroBackend] = useState(history.location.state?.tipo_usuario || '');
     const [token, setToken] = useState(localStorage.getItem('token')); //vem nulo se não existir
     const alterarToken = e => setToken(e);
 
@@ -80,7 +80,7 @@ export default function Login({ history }) {
                     />
                     <SpanErro erro={erro[1]} />
                 </FormControl>
-                <ButtonSubmitForm text="Entrar" loading={loading} function={logar} />
+                <ButtonSubmitForm text="Entrar" loading={loading} funcao={logar} />
                 <LinkRedirect url="/cadastro" text="Não tem senha? Clique aqui!" />
             </ContainerForm>
         </ContainerMain>

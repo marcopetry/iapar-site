@@ -16,10 +16,7 @@ export function validatorCadastroPropriedade(dadosPropriedade) {
     dadosPropriedade.data_proxima_visita === '' ? erros.push('Campo obrigatório.') : erros.push('');
     dadosPropriedade.longitude === '' ? erros.push('Campo obrigatório.') : erros.push('');
     dadosPropriedade.latitude === ''  ? erros.push('Campo obrigatório.') : erros.push('');
-    dadosPropriedade.qtd_pessoas_envolvidas_atividade === '' ? erros.push('Campo obrigatório.') : (
-        dadosPropriedade.qtd_pessoas_envolvidas_atividade <= 0 ? erros.push('Número inválido.') :
-        erros.push('')
-    );
+    
     return erros;
 }
 /* 

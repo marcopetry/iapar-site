@@ -23,6 +23,20 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import ButtonSubmitForm from '../button-submit-form/button-submit-form';
 import { Container, Grid } from '@material-ui/core';
 
+/**
+ * Componente pronto do material design UI. Ele renderiza uma tabela com os dados, 
+ * ordena conforme selecionado, coleta as seleções do usuário. 
+ * Tem um botão que recebe uma função com os selecionados como parãmetro e o que precisa ser
+ * feito quando clicar com os selecionados
+ * propriedades que precisam ser mandadas:
+ * /**
+ *    rows: é um array de json com as informações que serão exibidas;
+ *    orderByProp: argumento padrão para ordenar os itens na lista,
+ *    title: o que será exibido no cabeçalho,
+ *    headCells: cabeçalho que será exibido, um array de json,
+ *    funcao: funcao que será executada quando disparar o botão, recebe os selecionados como parãmetro
+ */
+
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -110,13 +124,13 @@ const useToolbarStyles = makeStyles(theme => ({
   highlight:
     theme.palette.type === 'light'
       ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
+        color: theme.palette.secondary.main,
+        backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+      }
       : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
+        color: theme.palette.text.primary,
+        backgroundColor: theme.palette.secondary.dark,
+      },
   title: {
     flex: '1 1 100%',
   },
@@ -137,10 +151,10 @@ const EnhancedTableToolbar = props => {
           {numSelected} selected
         </Typography>
       ) : (
-        <Typography className={classes.title} variant="h6" id="tableTitle">
-          {props.title}
-        </Typography>
-      )}
+          <Typography className={classes.title} variant="h6" id="tableTitle">
+            {props.title}
+          </Typography>
+        )}
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
@@ -149,12 +163,12 @@ const EnhancedTableToolbar = props => {
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
+          <Tooltip title="Filter list">
+            <IconButton aria-label="filter list">
+              <FilterListIcon />
+            </IconButton>
+          </Tooltip>
+        )}
     </Toolbar>
   );
 };
@@ -187,10 +201,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ListarInformacoes(props) {
+export default function ListarInformacoes({rows, orderByProp, title, headCells, funcao}) {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState(props.orderBy);
+  const [orderBy, setOrderBy] = React.useState(orderByProp);
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -204,7 +218,7 @@ export default function ListarInformacoes(props) {
 
   const handleSelectAllClick = event => {
     if (event.target.checked) {
-      const newSelecteds = props.rows.map(n => n.id);
+      const newSelecteds = rows.map(n => n.id);
       setSelected(newSelecteds);
       return;
     }
@@ -246,12 +260,10 @@ export default function ListarInformacoes(props) {
 
   const isSelected = id => selected.indexOf(id) !== -1;
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, props.rows.length - page * rowsPerPage);
-
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} title={props.title}/>
+        <EnhancedTableToolbar numSelected={selected.length} title={title} />
         <TableContainer>
           <Table
             className={classes.table}
@@ -266,20 +278,20 @@ export default function ListarInformacoes(props) {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={props.rows.length}
-              headCells={props.headCells}
+              rowCount={rows.length}
+              headCells={headCells}
             />
             <TableBody>
-              {stableSort(props.rows, getComparator(order, orderBy))
+              {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
-                    <TableRow 
-                      hover 
-                      role="checkbox" 
-                      tabIndex={-1} 
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
                       key={row.id}
                       onClick={event => handleClick(event, row.id)}
                       aria-checked={isItemSelected}
@@ -291,7 +303,7 @@ export default function ListarInformacoes(props) {
                           inputProps={{ 'aria-labelledby': labelId }}
                         />
                       </TableCell>
-                      {props.headCells.map(column => {
+                      {headCells.map(column => {
                         const value = row[column.id];
                         return (
                           <TableCell key={column.id} align={column.align}>
@@ -302,40 +314,35 @@ export default function ListarInformacoes(props) {
                     </TableRow>
                   );
                 })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
             </TableBody>
           </Table>
         </TableContainer>
-          <Container maxWidth="xs" className="mr-0 my-0">
-            <ButtonSubmitForm loading={false} text="Selecionar" function={() => props.function(selected)}/>
-          </Container>
-        </Paper>
-        <Grid alignContent="space-between" direction="row" justify="space-between" alignItems="center" container>
-          <div className="w-25">
-            <FormControlLabel
-              control={<Switch checked={dense} onChange={handleChangeDense} />}
-              label="Dense padding"
-              className="width-container-end-table"
-            />
-          </div>
-          <div className="w-50">
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={props.rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
-              labelRowsPerPage="Dados por página"
-              className="width-container-end-table"
-            />
-          </div>
-        </Grid>
+        <Container maxWidth="xs" className="mr-0 my-0">
+          <ButtonSubmitForm loading={false} text="Selecionar" funcao={() => funcao(selected)} />
+        </Container>
+      </Paper>
+      <Grid alignContent="space-between" direction="row" justify="space-between" alignItems="center" container>
+        <div className="w-25">
+          <FormControlLabel
+            control={<Switch checked={dense} onChange={handleChangeDense} />}
+            label="Dense padding"
+            className="width-container-end-table"
+          />
+        </div>
+        <div className="w-50">
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+            labelRowsPerPage="Dados por página"
+            className="width-container-end-table"
+          />
+        </div>
+      </Grid>
     </div>
   );
 }

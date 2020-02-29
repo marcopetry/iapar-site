@@ -1,8 +1,16 @@
 body, #root {
-    background: #eee;
+    background: var(--cinza-fundo);
     margin: 0;
     padding: 0;
     font-family: sans-serif;
     height: 100% !important;
 }
-      
+
+body {
+    --verde-primario: #00a85D; /* verde da iapar */
+    --roxo-primario: #a8004c;
+    --roxo-hover: #c7256e;
+    --cinza-fundo: #eee;
+    --cinza-hover: #e5e5e5;
+    --cinza-marcacao: #a5a5a5;
+}
