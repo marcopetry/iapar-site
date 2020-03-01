@@ -1,0 +1,33 @@
+.container-row-form-info-propriedade {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.2em;
+}
+
+.w-45 {
+    width: 45% !important;
+}
+
+.container-file-info-propriedade {
+    display: flex;
+    flex-direction: column !important;
+}
+
+#mapa-uso-terra {
+    display: flex;
+    flex-direction: column;
+}
+
+#label-mapa-file {
+    font-size: 10pt;
+}
+
+input[type=number]::-webkit-inner-spin-button { 
+    -webkit-appearance: none;
+    
+}
+input[type=number] { 
+   -moz-appearance: textfield;
+   appearance: textfield;
+
+}

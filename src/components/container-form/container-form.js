@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
  * Ajusta-se a presença da dashboard pelo history (url)
  * recebe como propriedades: 
  * {    
- *      maxWidth: true or false, padrão false
+ *      maxWidth: xs, sm, md, lg, xg
  *      classCSS: alguma classe css pra sobrepôr alguma característica. Geralmente tira-se o padding para alguns componentes
  *      children: componente que vai dentro
  * }

@@ -20,7 +20,6 @@ export default function CadastrarPropriedade({ history }) {
     const [erros, setErros] = useState(preencherArrayErrosComVazio());
     const [loading, setLoading] = useState(false);
 
-    console.log(history);
     async function cadastrarPropriedade() {
         const dadosPropriedade = {
             id_proprietario: history.location.state.id_proprietario,
@@ -86,7 +85,7 @@ export default function CadastrarPropriedade({ history }) {
             <ContainerForm maxWidth="sm">
                 <FormGroup row={true}>
                     <FormControl margin="dense" fullWidth>
-                        <InputLabel htmlFor="nome-propriedade" >Nome Propriedade</InputLabel>
+                        <InputLabel htmlFor="nome-propriedade">Nome Propriedade</InputLabel>
                         <Input id="nome-propriedade"
                             onChange={e => setNomePropriedade(e.target.value)}
                             value={nome_propriedade}

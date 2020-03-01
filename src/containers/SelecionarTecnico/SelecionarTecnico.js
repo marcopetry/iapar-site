@@ -29,7 +29,6 @@ export default function SelecionarTecnico({ history }) {
         if(history.location.state?.id_proprietario){
             buscarTecnicos();
         }
-
     }, []);
 
     //recebe como parãmetro um array com os selecionados na tabela
