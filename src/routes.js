@@ -10,6 +10,7 @@ import SelecionarTecnico from './containers/SelecionarTecnico/SelecionarTecnico'
 import CadastrarPropriedade from './containers/CadastrarPropriedade/CadastrarPropriedade';
 import Logout from './containers/Logout/Logout';
 import CadastrarInfoPropriedade from './containers/CadastrarInfoPropriedade/CadastrarInfoPropriedade';
+import ControllerInventario from './controllers/ControllerInventario';
 
 export default function Routes() {
     
@@ -22,7 +23,7 @@ export default function Routes() {
             <Route exact path="/menu/cadastrar-propriedade/cadastrar-proprietario" component={Cadastro} />
             <Route exact path="/menu/cadastrar-propriedade/selecionar-tecnicos" component={SelecionarTecnico} />
             <Route exact path='/menu/cadastrar-propriedade/dados-propriedade' component={CadastrarPropriedade} />
-            <Route exact path="/menu/cadastrar-propriedade/inventario-recursos" component={CadastrarInfoPropriedade} />
+            <Route exact path="/menu/cadastrar-propriedade/inventario-recursos" component={ControllerInventario} />
             <Route exact path="/menu/cadastrar-adm" component={Cadastro} />
             <Route exact path="/menu/cadastrar-tecnico" component={Cadastro} />
             <Route exact path="/menu/teste" component={Teste} />

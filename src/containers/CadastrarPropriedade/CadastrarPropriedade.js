@@ -17,7 +17,7 @@ export default function CadastrarPropriedade({ history }) {
     const [latitude, setLatitude] = useState('');
     const [data_inicio_programa, setDataInicio] = useState('');
     const [data_proxima_visita, setDataProximaVisita] = useState('');
-    const [erros, setErros] = useState(preencherArrayErrosComVazio());
+    const [erros, setErros] = useState(preencherArrayErrosComVazio(5));
     const [loading, setLoading] = useState(false);
 
     async function cadastrarPropriedade() {
@@ -41,7 +41,7 @@ export default function CadastrarPropriedade({ history }) {
         const response = await api.post('/propriedade', dadosPropriedade);
         console.log(response)
         if(response.data.message === "Propriedade cadastrada com sucesso."){
-            setLoading(response.data.message);
+            history.push('/menu/cadastrar-propriedade/inventario-recursos', response.data.id_propriedade_tecnico)
         }else {
             setLoading(false);
         }
@@ -74,7 +74,7 @@ export default function CadastrarPropriedade({ history }) {
             <FeedbackComButton
                 msg={loading}
                 textButton="Fazer Inventário"
-                funcao={() => history.push('/menu/cadastrar-propriedade/inventario-recursos')}
+                funcao={() => history.push('/menu/cadastrar-propriedade/inventario-recursos', )}
             />
         );
     }

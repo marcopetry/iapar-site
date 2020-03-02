@@ -20,6 +20,7 @@
 
 #label-mapa-file {
     font-size: 10pt;
+    margin-left: 0.3em;
 }
 
 input[type=number]::-webkit-inner-spin-button { 

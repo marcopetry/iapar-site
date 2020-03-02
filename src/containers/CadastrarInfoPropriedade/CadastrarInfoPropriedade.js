@@ -4,8 +4,13 @@ import { FormControl, FormGroup, Input, InputLabel, TextField, InputAdornment } 
 import ContainerMain from '../../components/container-main/container-main';
 import ContainerForm from '../../components/container-form/container-form';
 import ButtonSubmitForm from '../../components/button-submit-form/button-submit-form';
+import { validarInformacoesPropriedade }  from '../../validators/validator-info-propriedade';
+import api from '../../services/api';
+import { preencherArrayErrosComVazio } from '../../helpers/preencherArrayErrosComVazio';
+import SpanErro from '../../components/span-erro/span-erro';
+import { Alert } from '@material-ui/lab';
 
-export default function CadastrarInfoPropriedade({ history }) {
+export default function CadastrarInfoPropriedade({ history, id_propriedade_tecnico, setarAcao, retornarInfoController }) {
     const [data_insercao, setData] = useState('');
     const [area_total, setAreaTotal] = useState();
     const [total_terra_arrendada, setTotalTerraArrendada] = useState();
@@ -17,14 +22,47 @@ export default function CadastrarInfoPropriedade({ history }) {
     const [preco_medio_arrendamento, setPrecoMedioArrendamento] = useState();
     const [qtd_pessoas_envolvidas_atividade, setQtdPessoasEnvolvidas] = useState();
     const [mapa_uso_propriedade, setMapaUso] = useState('');
-    /**
-     * "id_propriedade_tecnico": 1,
-        "token":
-     */
+    const [loading, setLoading] = useState(false);
+    const [erros, setErros] = useState(preencherArrayErrosComVazio(10));
+    const [erroBackend, setErroBackend] = useState('');
 
+    async function cadastrarInformacoesPropriedade() {
+        
+        const dados = {
+            data_insercao, 
+            area_total, 
+            total_terra_arrendada,
+            area_bovinucultura,
+            area_pasto_perene,
+            area_lavoura_verao,
+            area_lavoura_inverno,
+            preco_medio_arrendamento,
+            preco_medio_terra_nua,
+            qtd_pessoas_envolvidas_atividade,
+            id_propriedade_tecnico,
+            token: localStorage.getItem('token')
+        };
+
+        const errosValidados = validarInformacoesPropriedade(dados);
+        setErros(errosValidados);
+        if(errosValidados.some(erro => erro !== '')){
+            return;
+        }
+        setLoading(true);
+        const response = await api.post('/info-propriedade', dados);
+
+        if(response.data.message !== 'Problemas ao cadastrar propriedade.'){
+            setarAcao('informar-dados');
+            retornarInfoController(response.data);
+        } else {
+            setErroBackend(response.data.message);
+        }
+        setLoading(false);
+    }
 
     return (
         <ContainerMain>
+            {erroBackend !== '' && <Alert severity="error">{erroBackend}</Alert>}
             <ContainerForm maxWidth="sm">
                 <FormGroup row={true} className="container-row-form-info-propriedade">
                     <FormControl margin="dense" className="w-45">
@@ -34,11 +72,12 @@ export default function CadastrarInfoPropriedade({ history }) {
                             type="date"
                             onChange={e => setData(e.target.value)}
                             value={data_insercao}
-                            error={false}
+                            error={erros[0] === '' ? false : true}
                             InputLabelProps={{
                                 shrink: true,
                             }}
                         />
+                        <SpanErro erro={erros[0]} />
                     </FormControl>
                     <FormControl margin="dense" className="w-45">
                         <InputLabel htmlFor="qtd-pessoas-envolvidas" >Qtd Pessoas Envolvidas</InputLabel>
@@ -46,9 +85,10 @@ export default function CadastrarInfoPropriedade({ history }) {
                             onChange={e => setQtdPessoasEnvolvidas(e.target.value)}
                             value={qtd_pessoas_envolvidas_atividade}
                             type="number"
+                            error={erros[1] === '' ? false : true}
                         />
-                    </FormControl>
-                    {/* <SpanErro erro={erros[1]} /> */}
+                        <SpanErro erro={erros[1]} />
+                    </FormControl>                    
                 </FormGroup>
 
                 <FormGroup row={true} className="container-row-form-info-propriedade">
@@ -59,7 +99,9 @@ export default function CadastrarInfoPropriedade({ history }) {
                             value={area_total}
                             type="number"
                             endAdornment={<InputAdornment position="start" className="mr-4">ha</InputAdornment>}
+                            error={erros[2] === '' ? false : true}
                         />
+                        <SpanErro erro={erros[2]} />
                     </FormControl>
                     <FormControl margin="dense" className="w-45">
                         <InputLabel htmlFor="area-arrendada" >Área Arrendada</InputLabel>
@@ -68,7 +110,9 @@ export default function CadastrarInfoPropriedade({ history }) {
                             value={total_terra_arrendada}
                             type="number"
                             endAdornment={<InputAdornment position="start" className="mr-4">ha</InputAdornment>}
+                            error={erros[3] === '' ? false : true}
                         />
+                        <SpanErro erro={erros[3]} />
                     </FormControl>
                 </FormGroup>
 
@@ -80,7 +124,9 @@ export default function CadastrarInfoPropriedade({ history }) {
                             value={area_bovinucultura}
                             type="number"
                             endAdornment={<InputAdornment position="start" className="mr-4">ha</InputAdornment>}
+                            error={erros[4] === '' ? false : true}
                         />
+                        <SpanErro erro={erros[4]} />
                     </FormControl>
                     <FormControl margin="dense" className="w-45">
                         <InputLabel htmlFor="area-pasto-perene" >Área Pasto Perene</InputLabel>
@@ -89,7 +135,9 @@ export default function CadastrarInfoPropriedade({ history }) {
                             value={area_pasto_perene}
                             type="number"
                             endAdornment={<InputAdornment position="start" className="mr-4">ha</InputAdornment>}                            
+                            error={erros[5] === '' ? false : true}
                         />
+                        <SpanErro erro={erros[5]} />
                     </FormControl>
                 </FormGroup>
 
@@ -101,7 +149,9 @@ export default function CadastrarInfoPropriedade({ history }) {
                             value={area_lavoura_inverno}
                             type="number"
                             endAdornment={<InputAdornment position="start" className="mr-4">ha</InputAdornment>}
+                            error={erros[6] === '' ? false : true}
                         />
+                        <SpanErro erro={erros[6]} />
                     </FormControl>
                     <FormControl margin="dense" className="w-45">
                         <InputLabel htmlFor="area-lavoura-verao" >Área Lavoura Verão</InputLabel>
@@ -110,7 +160,9 @@ export default function CadastrarInfoPropriedade({ history }) {
                             value={area_lavoura_verao}
                             type="number"
                             endAdornment={<InputAdornment position="start" className="mr-4">ha</InputAdornment>}
+                            error={erros[7] === '' ? false : true}
                         />
+                        <SpanErro erro={erros[7]} />
                     </FormControl>
                 </FormGroup>
 
@@ -121,8 +173,10 @@ export default function CadastrarInfoPropriedade({ history }) {
                             onChange={e => setPrecoMedioTerraNua(e.target.value)}
                             value={preco_medio_terra_nua}
                             type="number"
-                            startAdornment={<InputAdornment position="start" className="mr-4">R$</InputAdornment>}
+                            startAdornment={<InputAdornment position="start" className="mr-2">R$</InputAdornment>}
+                            error={erros[8] === '' ? false : true}
                         />
+                        <SpanErro erro={erros[8]} />
                     </FormControl>
                     <FormControl margin="dense" className="w-45">
                         <InputLabel htmlFor="preco-medio-arrendamento" >Preço Arrendamento</InputLabel>
@@ -130,8 +184,10 @@ export default function CadastrarInfoPropriedade({ history }) {
                             onChange={e => setPrecoMedioArrendamento(e.target.value)}
                             value={preco_medio_arrendamento}
                             type="number"
-                            startAdornment={<InputAdornment position="start" className="mr-4">R$</InputAdornment>}
+                            startAdornment={<InputAdornment position="start" className="mr-2">R$</InputAdornment>}
+                            error={erros[9] === '' ? false : true}
                         />
+                        <SpanErro erro={erros[9]} />
                     </FormControl>
 
                 </FormGroup>
@@ -142,15 +198,13 @@ export default function CadastrarInfoPropriedade({ history }) {
                         id="mapa-uso-terra"
                         onChange={e => setMapaUso(e.target.value)}
                         value={mapa_uso_propriedade}
-                        disableUnderline={true}
-                        fullWidth={false}
                         text=""
                     />
                 </FormControl>
                 <ButtonSubmitForm
                     text="Cadastrar"
-                    loading={false}
-                    funcao={() => alert('Falta implementar')}
+                    loading={loading}
+                    funcao={cadastrarInformacoesPropriedade}
                 />
             </ContainerForm>
         </ContainerMain>

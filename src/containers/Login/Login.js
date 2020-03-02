@@ -16,7 +16,7 @@ export default function Login({ history }) {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [loading, setLoading] = useState(false);
-    const [erro, setErro] = useState(preencherArrayErrosComVazio());
+    const [erro, setErro] = useState(preencherArrayErrosComVazio(2));
     const [erroBackend, setErroBackend] = useState(history.location.state?.tipo_usuario || '');
     const [token, setToken] = useState(localStorage.getItem('token')); //vem nulo se não existir
     const alterarToken = e => setToken(e);

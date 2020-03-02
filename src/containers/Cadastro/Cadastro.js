@@ -31,7 +31,7 @@ export default function Cadastro({ history }) {
     const [anoFormatura, setAnoFormatura] = useState('');
     const [cnpj, setCNPJ] = useState('');
     const [loading, setLoading] = useState(false);
-    const [erros, setErros] = useState(preencherArrayErrosComVazio());
+    const [erros, setErros] = useState(preencherArrayErrosComVazio(14));
     const [tipo_usuario, setTipoUsuario] = useState('');
 
     useEffect(() => {
