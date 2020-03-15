@@ -1,0 +1,22 @@
+.container-btns-acoes-info-propriedades {
+  display: flex;
+  flex-direction: row !important;
+  justify-content: space-between;
+}
+
+.btn-acao-info-propriedade {
+  width: 30% !important;
+}
+
+.btn-inventario {
+  background-color: white !important;
+  color: var(--roxo-primario) !important;
+  border: solid 0.06em var(--roxo-primario) !important;
+  font-weight: bold !important;
+  transition: background-color 1s linear 1s;
+}
+
+.btn-inventario:hover {
+  background-color: var(--cinza-marcacao) !important;
+  opacity: 0.85;
+}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './CadastrarInfoPropriedade.css'
+import { useParams } from 'react-router-dom'
 import { FormControl, FormGroup, Input, InputLabel, TextField, InputAdornment } from '@material-ui/core'
 import ContainerMain from '../../components/container-main/container-main'
 import ContainerForm from '../../components/container-form/container-form'
@@ -25,7 +26,7 @@ export default function CadastrarInfoPropriedade({ history }) {
   const [loading, setLoading] = useState(false)
   const [erros, setErros] = useState(preencherArrayErrosComVazio(10))
   const [erroBackend, setErroBackend] = useState('')
-  const id_propriedade_tecnico = history.location.pathname.split('/')[4]
+  const { id_propriedade_tecnico } = useParams()
 
   console.log(id_propriedade_tecnico)
   async function cadastrarInformacoesPropriedade() {

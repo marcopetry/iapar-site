@@ -5,7 +5,6 @@ import api from '../../services/api'
 import ListarInformacoes from '../../components/listarInformacoes/listarInformacoes'
 import { headerListTecnicos } from '../../helpers/itensTable/headersTables'
 import { formatarDadosTecnico } from '../../helpers/itensTable/formatdatesTable'
-import FeedbackComButton from '../../components/feedbackComButton/feedbackComButton'
 import TelaEspera from '../../components/tela-espera/tela-espera'
 import Feedback from '../../components/feedback/feedback'
 
@@ -14,22 +13,20 @@ export default function SelecionarTecnico({ history }) {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    async function buscarTecnicos() {
-      setLoading(true)
-      const response = await api.get('/tecnicos', { headers: { 'x-access-token': localStorage.getItem('token') } })
-
-      setLoading(false)
-      if (response.data.message === 'Problema no carregamento') {
-        setTecnicos(response.data.message)
-      } else {
-        setTecnicos(formatarDadosTecnico(response.data))
-      }
-    }
-    if (tecnicos.length === 0) {
-      buscarTecnicos()
-    }
+    buscarTecnicos()
   }, [])
 
+  async function buscarTecnicos() {
+    setLoading(true)
+    const response = await api.get('/tecnicos', { headers: { 'x-access-token': localStorage.getItem('token') } })
+
+    setLoading(false)
+    if (response.data.message === 'Problema no carregamento') {
+      setTecnicos(response.data.message)
+    } else {
+      setTecnicos(formatarDadosTecnico(response.data))
+    }
+  }
   //recebe como parãmetro um array com os selecionados na tabela
   const selecionarTecnicos = tecnicosSelecionados => {
     if (tecnicosSelecionados.length === 0) {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './Cadastro.css'
+import { useHistory } from 'react-router-dom'
 import { Select, FormControl, InputLabel, Input, FormGroup, MenuItem, Checkbox } from '@material-ui/core'
 import api from '../../services/api'
 import SpanErro from '../../components/span-erro/span-erro'
@@ -19,9 +20,9 @@ import ContainerMain from '../../components/container-main/container-main'
 import ButtonSubmitForm from '../../components/button-submit-form/button-submit-form'
 import LinkRedirect from '../../components/link/link'
 import Feedback from '../../components/feedback/feedback'
-import FeedbackComButton from '../../components/feedbackComButton/feedbackComButton'
 
-export default function Cadastro({ history }) {
+export default function Cadastro() {
+  const history = useHistory()
   const [nome, setNome] = useState('')
   const [cpf, setCPF] = useState('')
   const [telefone, setTelefone] = useState('')

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './Dashboard.css'
+import { useHistory } from 'react-router-dom'
 import logo from '../../assets/logo-iapar.png'
 import ListItemDashboard from '../../components/list-item-dashboard/list-item-dashboard'
 import retornaItensDashboard, { defineMenu } from '../../helpers/list-dashboards/controller-itens-dashboard'
@@ -7,14 +8,15 @@ import api from '../../services/api'
 import TelaEspera from '../../components/tela-espera/tela-espera'
 import { Scrollbars } from 'react-custom-scrollbars'
 
-export default function Dashboard({ history }) {
+export default function Dashboard() {
+  const history = useHistory()
   const [itensDashboard, setItensDashboard] = useState([])
   const [tipoUsuario, setTipoUsuario] = useState(history.location.state ? history.location.state.tipo_usuario : '')
   const [token, setToken] = useState(localStorage.getItem('token'))
   const [tipoDash, setTipoDash] = useState('')
 
   useEffect(() => {
-    if (!token) {
+    if (!token || !localStorage.getItem('token')) {
       history.push('/')
       return
     }
@@ -41,7 +43,7 @@ export default function Dashboard({ history }) {
       setTipoDash(itensDashboardAux)
       setItensDashboard(retornaItensDashboard(itensDashboardAux))
     }
-  }, [history.location.pathname, tipoDash, tipoUsuario, token, history, localStorage])
+  }, [history.location.pathname, tipoDash, tipoUsuario, token, history])
 
   if (tipoUsuario === '') {
     return <TelaEspera />

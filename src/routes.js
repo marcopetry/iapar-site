@@ -1,6 +1,5 @@
 import React from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
-
 import Cadastro from './containers/Cadastro/Cadastro'
 import Login from './containers/Login/Login'
 import Autenticacao from './containers/Autenticacao/Autenticacao'
@@ -9,9 +8,9 @@ import Dashboard from './containers/Dashboard/Dashboard'
 import SelecionarTecnico from './containers/SelecionarTecnico/SelecionarTecnico'
 import CadastrarPropriedade from './containers/CadastrarPropriedade/CadastrarPropriedade'
 import Logout from './containers/Logout/Logout'
-import ApresentarInfosDetalhadas from './components/apresentarInfoDetalhadas/ApresentarInfosDetalhadas'
 import CadastrarInfoPropriedade from './containers/CadastrarInfoPropriedade/CadastrarInfoPropriedade'
 import InfoPropriedade from './containers/InfoPropriedade.js/InfoPropriedade'
+import PropriedadesCadastradas from './containers/PropriedadesCadastradas.js/PropriedadesCadastradas'
 
 export default function Routes() {
   return (
@@ -20,6 +19,7 @@ export default function Routes() {
       <Route exact path="/cadastro" component={Cadastro} />
       <Route exact path="/auth/:token" component={Autenticacao} />
       <Route path="/menu" component={Dashboard} />
+      <Route exact path="/menu" component={PropriedadesCadastradas} />
       <Route exact path="/menu/cadastrar-propriedade/cadastrar-proprietario" component={Cadastro} />
       <Route
         exact
@@ -41,6 +41,7 @@ export default function Routes() {
         path="/menu/cadastrar-propriedade/inventario-recursos/:id_propriedade_tecnico"
         component={InfoPropriedade}
       />
+      <Route exact path="/menu/dados-propriedade/:id_propriedade_tecnico" component={CadastrarInfoPropriedade} />
       <Route exact path="/menu/cadastrar-adm" component={Cadastro} />
       <Route exact path="/menu/cadastrar-tecnico" component={Cadastro} />
       <Route exact path="/menu/teste" component={InfoPropriedade} />
