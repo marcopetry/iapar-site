@@ -3,9 +3,9 @@ import { FormGroup, FormControl, TextField, InputLabel, Select, MenuItem } from 
 import api from '../../services/api'
 import ButtonSubmitForm from '../../components/button-submit-form/button-submit-form'
 
-export default function CadastrarSelecionarForragem({ pegarIdForragem }) {
+export default function CadastrarSelecionarForragem({ pegarIdForragem, idForragem, vidaUtil }) {
   const [forragens, setForragem] = useState([])
-  const [forragemSelecionada, setForragemSelecionada] = useState(null)
+  const [forragemSelecionada, setForragemSelecionada] = useState(idForragem || '')
   const [tipo_forragem, setTipoForragem] = useState('')
   const [nome_forragem, setNomeforragem] = useState('')
   const [loading, setLoading] = useState(false)
@@ -64,6 +64,7 @@ export default function CadastrarSelecionarForragem({ pegarIdForragem }) {
               </MenuItem>
             </Select>
           </FormControl>
+          {vidaUtil}
         </FormGroup>
       )}
 
