@@ -28,7 +28,6 @@ export default function CadastrarInfoPropriedade({ history }) {
   const [erroBackend, setErroBackend] = useState('')
   const { id_propriedade_tecnico } = useParams()
 
-  console.log(id_propriedade_tecnico)
   async function cadastrarInformacoesPropriedade() {
     const dados = {
       data_insercao,
@@ -53,11 +52,13 @@ export default function CadastrarInfoPropriedade({ history }) {
     setLoading(true)
     const response = await api.post('/info-propriedade', dados)
 
-    console.log(response)
     if (response.data.message !== 'Problemas ao cadastrar propriedade.') {
-      history.push(`/menu/cadastrar-propriedade/inventario-recursos/${response.data.info_propriedade.id}`, {
-        info_propriedade: response.data.info_propriedade
-      })
+      history.push(
+        `/menu/cadastrar-propriedade/inventario-recursos/${id_propriedade_tecnico}/${response.data.info_propriedade.id}`,
+        {
+          info_propriedade: response.data.info_propriedade
+        }
+      )
     } else {
       setErroBackend(response.data.message)
     }

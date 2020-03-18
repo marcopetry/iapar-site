@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import './InfoPropriedade.css'
 import api from '../../services/api'
 import ApresentarInfosDetalhadas from '../../components/apresentarInfoDetalhadas/ApresentarInfosDetalhadas'
@@ -12,7 +12,7 @@ export default function InfoPropriedade() {
   const history = useHistory()
   const [dadosPropriedade, setDadosPropriedade] = useState({})
   const [loading, setLoading] = useState(true)
-  const id_propriedade_tecnico = history.location.pathname.split('/')[4]
+  const { id_propriedade_tecnico } = useParams()
   useEffect(() => {
     if (history.location.state?.info_propriedade) {
       setDadosPropriedade(history.location.state.info_propriedade)

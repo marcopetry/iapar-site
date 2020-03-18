@@ -11,6 +11,7 @@ import Logout from './containers/Logout/Logout'
 import CadastrarInfoPropriedade from './containers/CadastrarInfoPropriedade/CadastrarInfoPropriedade'
 import InfoPropriedade from './containers/InfoPropriedade.js/InfoPropriedade'
 import PropriedadesCadastradas from './containers/PropriedadesCadastradas.js/PropriedadesCadastradas'
+import Inventario from './containers/Inventario/Inventario'
 
 export default function Routes() {
   return (
@@ -38,10 +39,16 @@ export default function Routes() {
       />
       <Route
         exact
-        path="/menu/cadastrar-propriedade/inventario-recursos/:id_propriedade_tecnico"
+        path="/menu/cadastrar-propriedade/inventario-recursos/:id_propriedade_tecnico/:id_info_propriedade"
         component={InfoPropriedade}
       />
       <Route exact path="/menu/dados-propriedade/:id_propriedade_tecnico" component={CadastrarInfoPropriedade} />
+      <Route
+        exact
+        path="/menu/dados-propriedade/:id_propriedade_tecnico/inventario/:info_propriedade"
+        component={Inventario}
+      />
+
       <Route exact path="/menu/cadastrar-adm" component={Cadastro} />
       <Route exact path="/menu/cadastrar-tecnico" component={Cadastro} />
       <Route exact path="/menu/teste" component={InfoPropriedade} />

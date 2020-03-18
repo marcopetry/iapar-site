@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import { lighten, makeStyles } from '@material-ui/core/styles'
@@ -22,6 +22,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import FilterListIcon from '@material-ui/icons/FilterList'
 import ButtonSubmitForm from '../button-submit-form/button-submit-form'
 import { Container, Grid } from '@material-ui/core'
+import './listarInformacoes.css'
 
 /**
  * Componente pronto do material design UI. Ele renderiza uma tabela com os dados,
@@ -34,7 +35,8 @@ import { Container, Grid } from '@material-ui/core'
  *    orderByProp: argumento padrão para ordenar os itens na lista,
  *    title: o que será exibido no cabeçalho,
  *    headCells: cabeçalho que será exibido, um array de json,
- *    funcao: funcao que será executada quando disparar o botão, recebe os selecionados como parãmetro
+      pegarSelecionado: devolve os selecionados para o componenteque trata os dados
+      componentAcoes: componente que é renderizado após a tabela e que mostra as ações
  */
 
 function descendingComparator(a, b, orderBy) {
@@ -201,7 +203,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function ListarInformacoes({ rows, orderByProp, title, headCells, funcao }) {
+export default function ListarInformacoes({ rows, orderByProp, title, headCells, pegarSelecionado, componentAcoes }) {
   const classes = useStyles()
   const [order, setOrder] = React.useState('asc')
   const [orderBy, setOrderBy] = React.useState(orderByProp)
@@ -257,6 +259,8 @@ export default function ListarInformacoes({ rows, orderByProp, title, headCells,
 
   const isSelected = id => selected.indexOf(id) !== -1
 
+  //função recebida como prop para setar os selecionados no componente pai e enviar pro children que está aqui
+  pegarSelecionado(selected)
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -312,16 +316,13 @@ export default function ListarInformacoes({ rows, orderByProp, title, headCells,
           </Table>
         </TableContainer>
         <Container maxWidth="xs" className="mr-0 my-0">
-          <ButtonSubmitForm loading={false} text="Selecionar" funcao={() => funcao(selected)} />
+          {componentAcoes}
+          {/* <ButtonSubmitForm loading={false} text="Selecionar" funcao={() => funcao(selected)} /> */}
         </Container>
       </Paper>
       <Grid alignContent="space-between" direction="row" justify="space-between" alignItems="center" container>
         <div className="w-25">
-          <FormControlLabel
-            control={<Switch checked={dense} onChange={handleChangeDense} />}
-            label="Dense padding"
-            className="width-container-end-table"
-          />
+          <FormControlLabel control={<Switch checked={dense} onChange={handleChangeDense} />} label="Dense padding" />
         </div>
         <div className="w-50">
           <TablePagination
@@ -333,7 +334,6 @@ export default function ListarInformacoes({ rows, orderByProp, title, headCells,
             onChangePage={handleChangePage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
             labelRowsPerPage="Dados por página"
-            className="width-container-end-table"
           />
         </div>
       </Grid>

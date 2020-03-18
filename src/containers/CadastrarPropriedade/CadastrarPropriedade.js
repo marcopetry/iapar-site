@@ -38,7 +38,6 @@ export default function CadastrarPropriedade({ history }) {
     }
     setLoading(true)
     const response = await api.post('/propriedade', dadosPropriedade)
-    console.log(response)
     if (response.data.message === 'Propriedade cadastrada com sucesso.') {
       history.push(`/menu/cadastrar-propriedade/dados-propriedade/${response.data.id_propriedade_tecnico}`)
     } else {
@@ -55,7 +54,6 @@ export default function CadastrarPropriedade({ history }) {
       />
     )
   }
-  console.log('data ', data_inicio_programa)
 
   return (
     <ContainerMain>

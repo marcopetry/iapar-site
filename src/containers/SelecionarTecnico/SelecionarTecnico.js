@@ -7,10 +7,14 @@ import { headerListTecnicos } from '../../helpers/itensTable/headersTables'
 import { formatarDadosTecnico } from '../../helpers/itensTable/formatdatesTable'
 import TelaEspera from '../../components/tela-espera/tela-espera'
 import Feedback from '../../components/feedback/feedback'
+import ButtonSubmitForm from '../../components/button-submit-form/button-submit-form'
 
 export default function SelecionarTecnico({ history }) {
   const [tecnicos, setTecnicos] = useState([])
   const [loading, setLoading] = useState(false)
+  const [tecnicosSelecionados, setSelecionados] = useState([])
+
+  const pegarSelecionados = selecionados => setSelecionados(selecionados)
 
   useEffect(() => {
     buscarTecnicos()
@@ -28,7 +32,7 @@ export default function SelecionarTecnico({ history }) {
     }
   }
   //recebe como parãmetro um array com os selecionados na tabela
-  const selecionarTecnicos = tecnicosSelecionados => {
+  const selecionarTecnicos = () => {
     if (tecnicosSelecionados.length === 0) {
       alert('Você precisa selecionar os técnicos para a propriedade.')
       return
@@ -54,6 +58,8 @@ export default function SelecionarTecnico({ history }) {
           title="Selecione técnicos"
           orderByProp="nome"
           funcao={selecionarTecnicos}
+          componentAcoes={<ButtonSubmitForm loading={false} text="Selecionar" funcao={selecionarTecnicos} />}
+          pegarSelecionado={pegarSelecionados}
         />
       </ContainerForm>
     </ContainerMain>

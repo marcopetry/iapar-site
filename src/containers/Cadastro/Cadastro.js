@@ -129,7 +129,6 @@ export default function Cadastro() {
     }
   }
 
-  console.log(loading)
   if (loading.data?.resposta === 'Cadastro realizado com sucesso.') {
     if (history.location.pathname === '/cadastro') {
       return <Feedback msg="Você precisa acessar seu email para confirmar seu cadastro." />

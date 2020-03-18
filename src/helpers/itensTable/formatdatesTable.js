@@ -19,16 +19,17 @@ export function formatarDadosTecnico(listaTecnicos) {
 
 export function formatarDadosPropriedades(listaPropriedades) {
   let dadosFormatados = []
-  listaPropriedades.forEach(propriedade => {
-    const [dado] = propriedade
+  listaPropriedades.forEach(element => {
+    const { propriedade } = element
     dadosFormatados.push({
-      id: dado.id,
-      nome_propriedade: dado.nome_propriedade,
-      data_proxima_visita: formatarData(dado.data_proxima_visita),
-      nome_proprietario: dado.dono_propriedade?.usuario.nome,
-      email: dado.dono_propriedade.usuario.email,
-      telefone: dado.dono_propriedade.usuario.telefone,
-      cidade: dado.dono_propriedade.usuario.cidade
+      id_propriedade_tecnico: element.id_propriedade_tecnico,
+      id: propriedade.id,
+      nome_propriedade: propriedade.nome_propriedade,
+      data_proxima_visita: formatarData(propriedade.data_proxima_visita),
+      nome_proprietario: propriedade.dono_propriedade?.usuario.nome,
+      email: propriedade.dono_propriedade.usuario.email,
+      telefone: propriedade.dono_propriedade.usuario.telefone,
+      cidade: propriedade.dono_propriedade.usuario.cidade
     })
   })
   return dadosFormatados

@@ -1,22 +1,24 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import './InfoPropriedadesAcoes.css'
 import ButtonSubmitForm from '../../components/button-submit-form/button-submit-form'
 
 export default function InfoPropriedadeAcoes({ dadosPropriedade }) {
   const history = useHistory()
-  const funcaoInventario = () => {
-    history.push(`/menu/dados-propriedade/${dadosPropriedade.id_propriedade_tecnico}`)
-  }
+  const { id_propriedade_tecnico } = useParams()
 
   return (
     <div className="container-btns-acoes-info-propriedades">
       <ButtonSubmitForm
         text="Inventário"
         classCSS="btn-acao-info-propriedade btn-inventario"
-        funcao={funcaoInventario}
+        funcao={() => history.push(`/menu/dados-propriedade/${id_propriedade_tecnico}`)}
       />
-      <ButtonSubmitForm text="Editar informações" classCSS="btn-acao-info-propriedade btn-inventario" />
+      <ButtonSubmitForm
+        text="Editar informações"
+        classCSS="btn-acao-info-propriedade btn-inventario"
+        funcao={() => history.push(`/menu/dados-propriedade/${id_propriedade_tecnico}`)}
+      />
       <ButtonSubmitForm text="Concluir" classCSS="btn-acao-info-propriedade" funcao={() => history.push('/menu')} />
     </div>
   )
