@@ -246,7 +246,15 @@ export default function CadastrarInfoPropriedade({ history }) {
             text=""
           />
         </FormControl>
-        <ButtonSubmitForm text="Cadastrar" loading={loading} funcao={cadastrarInformacoesPropriedade} />
+        <div className="container-btns-inventario">
+          <ButtonSubmitForm text="Concluir" funcao={() => history.push(`/menu`)} classCSS="w-45 btn-secondary" />
+          <ButtonSubmitForm
+            text="Cadastrar"
+            loading={loading}
+            funcao={cadastrarInformacoesPropriedade}
+            classCSS="w-45"
+          />
+        </div>
       </ContainerForm>
     </ContainerMain>
   )

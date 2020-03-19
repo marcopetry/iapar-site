@@ -315,10 +315,7 @@ export default function ListarInformacoes({ rows, orderByProp, title, headCells,
             </TableBody>
           </Table>
         </TableContainer>
-        <Container maxWidth="xs" className="mr-0 my-0">
-          {componentAcoes}
-          {/* <ButtonSubmitForm loading={false} text="Selecionar" funcao={() => funcao(selected)} /> */}
-        </Container>
+        {componentAcoes}
       </Paper>
       <Grid alignContent="space-between" direction="row" justify="space-between" alignItems="center" container>
         <div className="w-25">

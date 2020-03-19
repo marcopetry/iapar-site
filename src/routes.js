@@ -4,7 +4,6 @@ import Cadastro from './containers/Cadastro/Cadastro'
 import Login from './containers/Login/Login'
 import Autenticacao from './containers/Autenticacao/Autenticacao'
 import Dashboard from './containers/Dashboard/Dashboard'
-//import Teste from './components/teste/teste'
 import SelecionarTecnico from './containers/SelecionarTecnico/SelecionarTecnico'
 import CadastrarPropriedade from './containers/CadastrarPropriedade/CadastrarPropriedade'
 import Logout from './containers/Logout/Logout'
@@ -45,7 +44,7 @@ export default function Routes() {
       <Route exact path="/menu/dados-propriedade/:id_propriedade_tecnico" component={CadastrarInfoPropriedade} />
       <Route
         exact
-        path="/menu/dados-propriedade/:id_propriedade_tecnico/inventario/:info_propriedade"
+        path="/menu/cadastrar-propriedade/inventario-recursos/:id_propriedade_tecnico/:id_info_propriedade/novo"
         component={Inventario}
       />
 

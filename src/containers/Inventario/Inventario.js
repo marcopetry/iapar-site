@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import ContainerMain from '../../components/container-main/container-main'
 import ContainerForm from '../../components/container-form/container-form'
 import {
@@ -18,22 +18,25 @@ import SpanErro from '../../components/span-erro/span-erro'
 import CadastrarSelecionarForragem from '../CadastrarSelecionarForragem/CadastrarSelecionarForragem'
 import ButtonSubmitForm from '../../components/button-submit-form/button-submit-form'
 import api from '../../services/api'
+import './Inventario.css'
 
 export default function Inventario() {
-  const [id_forragem, setIdForragem] = useState(undefined)
+  const history = useHistory()
+  const [id_forragem, setIdForragem] = useState('')
   const [tipo_terra, setTipoTerra] = useState('')
   const [data_formacao, setDataFormacao] = useState('')
   const [custo_medio_formacao, setCustoMedioFormacao] = useState()
-  const [area, setArea] = useState()
-  const [vida_util, setVidaUtil] = useState()
+  const [area, setArea] = useState('')
+  const [vida_util, setVidaUtil] = useState('')
   const [observacao, setObservacao] = useState('')
-  const { info_propriedade } = useParams()
+  const { id_info_propriedade } = useParams()
+  const { id_propriedade_tecnico } = useParams()
   const pegarIdForragem = e => setIdForragem(e)
   const [loading, setLoading] = useState(false)
 
   async function cadastrarInventario() {
     setLoading(true)
-    const response = await api.post(`/forragem/${info_propriedade}`, {
+    const response = await api.post(`/forragem/${id_info_propriedade}`, {
       id_forragem,
       tipo_terra,
       data_formacao,
@@ -43,9 +46,21 @@ export default function Inventario() {
       observacao,
       token: localStorage.getItem('token')
     })
+    limparCampos()
     console.log(response)
     setLoading(false)
   }
+
+  function limparCampos() {
+    setIdForragem(null)
+    setTipoTerra('')
+    setDataFormacao('')
+    setCustoMedioFormacao('')
+    setArea('')
+    setVidaUtil('')
+    setObservacao('')
+  }
+
   return (
     <ContainerMain>
       <ContainerForm maxWidth="sm" classCSS="py-2">
@@ -54,7 +69,7 @@ export default function Inventario() {
           idForragem={id_forragem}
           vidaUtil={
             <FormControl margin="dense" className="w-45">
-              <InputLabel htmlFor="vida-util">Vida útil</InputLabel>
+              <InputLabel htmlFor="vida-util">Vida útil em anos</InputLabel>
               <Input id="vida-util" onChange={e => setVidaUtil(e.target.value)} value={vida_util} type="number" />
             </FormControl>
           }
@@ -129,7 +144,18 @@ export default function Inventario() {
             />
           </FormControl>
         </FormGroup>
-        <ButtonSubmitForm text="Salvar" funcao={cadastrarInventario} loading={loading} />
+        <div className="container-btns-inventario">
+          <ButtonSubmitForm
+            text="Concluir"
+            funcao={() =>
+              history.push(
+                `/menu/cadastrar-propriedade/inventario-recursos/${id_propriedade_tecnico}/${id_info_propriedade}`
+              )
+            }
+            classCSS="w-45 btn-secondary-inventario"
+          />
+          <ButtonSubmitForm text="Cadastrar" funcao={cadastrarInventario} loading={loading} classCSS="w-45" />
+        </div>
       </ContainerForm>
     </ContainerMain>
   )

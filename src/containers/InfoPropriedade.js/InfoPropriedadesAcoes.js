@@ -7,12 +7,17 @@ export default function InfoPropriedadeAcoes({ dadosPropriedade }) {
   const history = useHistory()
   const { id_propriedade_tecnico } = useParams()
 
+  console.log(dadosPropriedade)
   return (
     <div className="container-btns-acoes-info-propriedades">
       <ButtonSubmitForm
         text="Inventário"
         classCSS="btn-acao-info-propriedade btn-inventario"
-        funcao={() => history.push(`/menu/dados-propriedade/${id_propriedade_tecnico}`)}
+        funcao={() =>
+          history.push(
+            `/menu/cadastrar-propriedade/inventario-recursos/${id_propriedade_tecnico}/${dadosPropriedade.id}/novo`
+          )
+        }
       />
       <ButtonSubmitForm
         text="Editar informações"
@@ -23,3 +28,5 @@ export default function InfoPropriedadeAcoes({ dadosPropriedade }) {
     </div>
   )
 }
+
+///menu/cadastrar-propriedade/inventario-recursos/:id_propriedade_tecnico/:id_info_propriedade/novo

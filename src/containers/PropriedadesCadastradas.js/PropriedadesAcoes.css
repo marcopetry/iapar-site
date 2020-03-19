@@ -1,14 +1,10 @@
-.container-btns-inventario {
+.container-btns-propriedades-cadastradas {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.w-45 {
-  width: 45% !important;
-}
-
-.btn-secondary-inventario {
+.btn-secondary {
   background-color: var(--cinza-fundo) !important;
   color: var(--roxo-primario) !important;
   border: solid 0.06em var(--roxo-primario) !important;
@@ -16,7 +12,11 @@
   transition: background-color 1s linear 1s;
 }
 
-.btn-secondary-inventario:hover {
+.btn-secondary:hover {
   background-color: var(--cinza-marcacao) !important;
   opacity: 0.85;
+}
+
+.w-40 {
+  width: 40% !important;
 }

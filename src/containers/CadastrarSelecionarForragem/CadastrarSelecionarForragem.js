@@ -5,7 +5,7 @@ import ButtonSubmitForm from '../../components/button-submit-form/button-submit-
 
 export default function CadastrarSelecionarForragem({ pegarIdForragem, idForragem, vidaUtil }) {
   const [forragens, setForragem] = useState([])
-  const [forragemSelecionada, setForragemSelecionada] = useState(idForragem || '')
+  const [forragemSelecionada, setForragemSelecionada] = useState(idForragem || 'Selecione')
   const [tipo_forragem, setTipoForragem] = useState('')
   const [nome_forragem, setNomeforragem] = useState('')
   const [loading, setLoading] = useState(false)

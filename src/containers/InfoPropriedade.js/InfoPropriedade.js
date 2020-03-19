@@ -5,7 +5,6 @@ import api from '../../services/api'
 import ApresentarInfosDetalhadas from '../../components/apresentarInfoDetalhadas/ApresentarInfosDetalhadas'
 import { formatDadosInfoPropriedade } from '../../helpers/formatDadosInfoPropriedade'
 import TelaEspera from '../../components/tela-espera/tela-espera'
-//import ButtonSubmitForm from '../../components/button-submit-form/button-submit-form'
 import InfoPropriedadeAcoes from './InfoPropriedadesAcoes'
 
 export default function InfoPropriedade() {

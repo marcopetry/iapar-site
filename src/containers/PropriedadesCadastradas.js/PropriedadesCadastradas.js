@@ -6,10 +6,10 @@ import ContainerForm from '../../components/container-form/container-form'
 import ListarInformacoes from '../../components/listarInformacoes/listarInformacoes'
 import TelaEspera from '../../components/tela-espera/tela-espera'
 import api from '../../services/api'
-import ButtonSubmitForm from '../../components/button-submit-form/button-submit-form'
+import PropriedadeAcoes from './PropriedadesAcoes'
 
 export default function({ history }) {
-  const [propriedade, setPropriedade] = useState([])
+  const [propriedades, setPropriedade] = useState([])
   const [propriedadesSelecionadas, setSelecionados] = useState([])
 
   const pegarSelecionados = selecionados => setSelecionados(selecionados)
@@ -26,7 +26,7 @@ export default function({ history }) {
     buscarPropriedades()
   }, [])
 
-  if (propriedade.length === 0) {
+  if (propriedades.length === 0) {
     return <TelaEspera />
   }
 
@@ -34,12 +34,16 @@ export default function({ history }) {
     <ContainerMain>
       <ContainerForm classCSS="p-0">
         <ListarInformacoes
-          rows={propriedade}
+          rows={propriedades}
           orderByProp="data_proxima_visita"
           title="Propriedades Cadastradas"
           headCells={headerListPropriedades}
           componentAcoes={
-            <ButtonSubmitForm loading={false} text="Selecionar" funcao={() => console.log(propriedadesSelecionadas)} />
+            <PropriedadeAcoes
+              propriedadesSelecionadas={propriedadesSelecionadas}
+              history={history}
+              propriedades={propriedades}
+            />
           }
           pegarSelecionado={pegarSelecionados}
         />

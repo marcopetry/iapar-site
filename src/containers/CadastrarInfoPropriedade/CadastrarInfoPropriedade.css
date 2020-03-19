@@ -1,34 +1,45 @@
 .container-row-form-info-propriedade {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.2em;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.2em;
 }
 
 .w-45 {
-    width: 45% !important;
+  width: 45% !important;
 }
 
 .container-file-info-propriedade {
-    display: flex;
-    flex-direction: column !important;
+  display: flex;
+  flex-direction: column !important;
+}
+
+.btn-secondary {
+  background-color: var(--cinza-fundo) !important;
+  color: var(--roxo-primario) !important;
+  border: solid 0.06em var(--roxo-primario) !important;
+  font-weight: bold !important;
+  transition: background-color 1s linear 1s;
+}
+
+.btn-secondary:hover {
+  background-color: var(--cinza-marcacao) !important;
+  opacity: 0.85;
 }
 
 #mapa-uso-terra {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 #label-mapa-file {
-    font-size: 10pt;
-    margin-left: 0.3em;
+  font-size: 10pt;
+  margin-left: 0.3em;
 }
 
-input[type=number]::-webkit-inner-spin-button { 
-    -webkit-appearance: none;
-    
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
 }
-input[type=number] { 
-   -moz-appearance: textfield;
-   appearance: textfield;
-
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
