@@ -19,14 +19,28 @@ export default function PropriedadeAcoes({ propriedadesSelecionadas, history, pr
     return <></>
   }
 
-  const fazerInventario = () => {
+  function validarQtdPropriedadeSelecionada() {
     if (propriedadesSelecionadas.length > 1) {
-      alert('Para fazer inventário, selecione apenas uma propriedade.')
-      return
+      alert('Selecione apenas uma propriedade.')
+      return false
     }
 
     if (propriedadesSelecionadas.length === 0) {
       alert('Você precisa selecionar uma propriedade.')
+      return false
+    }
+    return true
+  }
+
+  const inclusoesRapidas = () => {
+    if (!validarQtdPropriedadeSelecionada()) {
+      return
+    }
+    history.push(`/menu/inclusoes-rapidas`, { id_propriedade: propriedadesSelecionadas[0] })
+  }
+
+  const fazerInventario = () => {
+    if (!validarQtdPropriedadeSelecionada()) {
       return
     }
     const [propriedade] = retornaObjetosEscolhidos(propriedades, propriedadesSelecionadas)
@@ -39,16 +53,17 @@ export default function PropriedadeAcoes({ propriedadesSelecionadas, history, pr
       <div className="container-btns-propriedades-cadastradas mx-3">
         <ButtonSubmitForm
           loading={false}
-          text="Fazer Inventário"
-          funcao={fazerInventario}
+          text="Ver detalhes"
+          funcao={() => alert('Falta implementar')}
           classCSS="w-40 btn-secondary"
         />
         <ButtonSubmitForm
           loading={false}
-          text="Ver detalhes"
-          funcao={() => alert('Falta implementar')}
-          classCSS="w-40"
+          text="Inclusões rápidas"
+          funcao={inclusoesRapidas}
+          classCSS="w-40 btn-secondary"
         />
+        <ButtonSubmitForm loading={false} text="Fazer Inventário" funcao={fazerInventario} classCSS="w-40" />
       </div>
     )
   }

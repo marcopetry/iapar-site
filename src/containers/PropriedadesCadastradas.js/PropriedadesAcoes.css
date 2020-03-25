@@ -19,4 +19,6 @@
 
 .w-40 {
   width: 40% !important;
+  margin-right: 1em !important;
+  margin-left: 1em !important;
 }

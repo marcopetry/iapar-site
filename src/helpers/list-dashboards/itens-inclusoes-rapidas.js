@@ -3,6 +3,12 @@ import undo from '../../assets/undo.svg'
 
 export const itensInclusoesRapidas = [
   {
+    text: 'Cadastrar Animal',
+    url: '/menu/inclusoes-rapidas/cadastrar-animal',
+    icon: add,
+    redirect: true
+  },
+  {
     text: 'Compra Animal',
     url: '/menu/inclusoes-rapidas/compra-animal',
     icon: add,

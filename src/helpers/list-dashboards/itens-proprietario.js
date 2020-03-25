@@ -7,11 +7,5 @@ export const itensProprietario = [
     url: '/menu',
     icon: home,
     redirect: true
-  },
-  {
-    text: 'Inclusões Rápidas',
-    url: '/menu/inclusoes-rapidas',
-    icon: add,
-    redirect: true
   }
 ]

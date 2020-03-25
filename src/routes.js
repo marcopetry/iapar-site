@@ -11,6 +11,7 @@ import CadastrarInfoPropriedade from './containers/CadastrarInfoPropriedade/Cada
 import InfoPropriedade from './containers/InfoPropriedade.js/InfoPropriedade'
 import PropriedadesCadastradas from './containers/PropriedadesCadastradas.js/PropriedadesCadastradas'
 import Inventario from './containers/Inventario/Inventario'
+import InclusoesRapidas from './containers/InclusoesRapidas/InclusoesRapidas'
 
 export default function Routes() {
   return (
@@ -47,6 +48,17 @@ export default function Routes() {
         path="/menu/cadastrar-propriedade/inventario-recursos/:id_propriedade_tecnico/:id_info_propriedade/novo"
         component={Inventario}
       />
+
+      <Route exact path="/menu/inclusoes-rapidas/cadastrar-animal" component={InclusoesRapidas} />
+      <Route exact path="/menu/inclusoes-rapidas/compra-animal" component={InclusoesRapidas} />
+      <Route exact path="/menu/inclusoes-rapidas/prenhez" component={InclusoesRapidas} />
+      <Route exact path="/menu/inclusoes-rapidas/doencas" component={InclusoesRapidas} />
+      <Route exact path="/menu/inclusoes-rapidas/inseminacao" component={InclusoesRapidas} />
+      <Route exact path="/menu/inclusoes-rapidas/mastite" component={InclusoesRapidas} />
+      <Route exact path="/menu/inclusoes-rapidas/medicamentos" component={InclusoesRapidas} />
+      <Route exact path="/menu/inclusoes-rapidas/morte-animal" component={InclusoesRapidas} />
+      <Route exact path="/menu/inclusoes-rapidas/parto" component={InclusoesRapidas} />
+      <Route exact path="/menu/inclusoes-rapidas/venda-animal" component={InclusoesRapidas} />
 
       <Route exact path="/menu/cadastrar-adm" component={Cadastro} />
       <Route exact path="/menu/cadastrar-tecnico" component={Cadastro} />
