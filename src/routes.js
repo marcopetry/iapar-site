@@ -12,6 +12,7 @@ import InfoPropriedade from './containers/InfoPropriedade.js/InfoPropriedade'
 import PropriedadesCadastradas from './containers/PropriedadesCadastradas.js/PropriedadesCadastradas'
 import Inventario from './containers/Inventario/Inventario'
 import InclusoesRapidas from './containers/InclusoesRapidas/InclusoesRapidas'
+import CadastrarAnimal from './containers/InclusoesRapidas/CadastroAnimal/CadastroAnimal'
 
 export default function Routes() {
   return (
@@ -49,7 +50,8 @@ export default function Routes() {
         component={Inventario}
       />
 
-      <Route exact path="/menu/inclusoes-rapidas/cadastrar-animal" component={InclusoesRapidas} />
+      <Route exact path="/menu/inclusoes-rapidas" component={InclusoesRapidas} />
+      <Route exact path="/menu/inclusoes-rapidas/cadastrar-animal" component={CadastrarAnimal} />
       <Route exact path="/menu/inclusoes-rapidas/compra-animal" component={InclusoesRapidas} />
       <Route exact path="/menu/inclusoes-rapidas/prenhez" component={InclusoesRapidas} />
       <Route exact path="/menu/inclusoes-rapidas/doencas" component={InclusoesRapidas} />

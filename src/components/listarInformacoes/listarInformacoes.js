@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import { lighten, makeStyles } from '@material-ui/core/styles'
@@ -20,8 +20,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Switch from '@material-ui/core/Switch'
 import DeleteIcon from '@material-ui/icons/Delete'
 import FilterListIcon from '@material-ui/icons/FilterList'
-import ButtonSubmitForm from '../button-submit-form/button-submit-form'
-import { Container, Grid } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import './listarInformacoes.css'
 
 /**

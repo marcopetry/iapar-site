@@ -2,7 +2,6 @@ import React from 'react'
 import FeedbackComButton from '../../components/feedbackComButton/feedbackComButton'
 
 export default function InclusoesRapidas({ history }) {
-  console.log(history)
   if (!history?.location?.state?.id_propriedade) {
     history.push('/menu')
   }
