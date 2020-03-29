@@ -20,6 +20,9 @@ import MorteAnimal from './containers/InclusoesRapidas/MorteAnimal/MorteAnimal'
 import VendaAnimal from './containers/InclusoesRapidas/VendaAnimal/VendaAnimal'
 import PartoAnimal from './containers/InclusoesRapidas/PartoAnimal/PartoAnimal'
 import MastiteAnimal from './containers/InclusoesRapidas/MastiteAnimal/MastiteAnimal'
+import InseminacaoAnimal from './containers/InclusoesRapidas/InseminacaoAnimal/InseminacaoAnimal'
+import MedicamentoAnimal from './containers/InclusoesRapidas/MedicamentoAnimal/MedicamentoAnimal'
+import CadastrarRemedio from './containers/InclusoesRapidas/CadastrarRemedios/CadastrarRemedio'
 
 export default function Routes() {
   return (
@@ -62,12 +65,13 @@ export default function Routes() {
       <Route exact path="/menu/inclusoes-rapidas/compra-animal" component={CompraAnimal} />
       <Route exact path="/menu/inclusoes-rapidas/prenhez" component={CadastroPrenhez} />
       <Route exact path="/menu/inclusoes-rapidas/doencas" component={DoencaAnimal} />
-      <Route exact path="/menu/inclusoes-rapidas/inseminacao" component={InclusoesRapidas} />
+      <Route exact path="/menu/inclusoes-rapidas/inseminacao" component={InseminacaoAnimal} />
       <Route exact path="/menu/inclusoes-rapidas/mastite" component={MastiteAnimal} />
-      <Route exact path="/menu/inclusoes-rapidas/medicamentos" component={InclusoesRapidas} />
+      <Route exact path="/menu/inclusoes-rapidas/medicamentos" component={CadastrarRemedio} />
       <Route exact path="/menu/inclusoes-rapidas/morte-animal" component={MorteAnimal} />
       <Route exact path="/menu/inclusoes-rapidas/parto" component={PartoAnimal} />
       <Route exact path="/menu/inclusoes-rapidas/venda-animal" component={VendaAnimal} />
+      <Route exact path="/menu/inclusoes-rapidas/tratamentos" component={MedicamentoAnimal} />
 
       <Route exact path="/menu/cadastrar-adm" component={Cadastro} />
       <Route exact path="/menu/cadastrar-tecnico" component={Cadastro} />

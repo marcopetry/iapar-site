@@ -57,6 +57,12 @@ export const itensInclusoesRapidas = [
     redirect: true
   },
   {
+    text: 'Tratamentos',
+    url: '/menu/inclusoes-rapidas/tratamentos',
+    icon: add,
+    redirect: true
+  },
+  {
     text: 'Venda de animal',
     url: '/menu/inclusoes-rapidas/venda-animal',
     icon: add,
