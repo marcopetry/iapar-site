@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import './InfoPropriedade.css'
 import api from '../../services/api'
@@ -12,15 +12,13 @@ export default function InfoPropriedade() {
   const [dadosPropriedade, setDadosPropriedade] = useState({})
   const [loading, setLoading] = useState(true)
   const { id_propriedade_tecnico } = useParams()
-  useEffect(() => {
-    if (history.location.state?.info_propriedade) {
-      setDadosPropriedade(history.location.state.info_propriedade)
-      setLoading(false)
-    } else if (localStorage.getItem('token')) {
-      buscarDadosPropriedade()
-    }
-  }, [])
 
+  if (history.location.state?.info_propriedade) {
+    setDadosPropriedade(history.location.state.info_propriedade)
+    setLoading(false)
+  } else if (localStorage.getItem('token')) {
+    buscarDadosPropriedade()
+  }
   async function buscarDadosPropriedade() {
     const response = await api.get(`/info-propriedade/${id_propriedade_tecnico}`, {
       headers: { 'x-access-token': localStorage.getItem('token') }
