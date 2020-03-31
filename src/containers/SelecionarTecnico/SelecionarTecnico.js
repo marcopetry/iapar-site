@@ -58,7 +58,11 @@ export default function SelecionarTecnico({ history }) {
           title="Selecione técnicos"
           orderByProp="nome"
           funcao={selecionarTecnicos}
-          componentAcoes={<ButtonSubmitForm loading={false} text="Selecionar" funcao={selecionarTecnicos} />}
+          componentAcoes={
+            <div className="container-btns-propriedades-cadastradas mx-3">
+              <ButtonSubmitForm loading={false} text="Selecionar técnicos" funcao={selecionarTecnicos} />
+            </div>
+          }
           pegarSelecionado={pegarSelecionados}
         />
       </ContainerForm>

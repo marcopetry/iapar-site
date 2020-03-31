@@ -97,3 +97,20 @@ export const headerListPropriedades = [
     align: 'center'
   }
 ]
+
+export const headerListPropriedadesProprietario = [
+  {
+    id: 'nome_propriedade',
+    label: 'Nome propriedade',
+    minWidth: 100,
+    numeric: false,
+    align: 'center'
+  },
+  {
+    id: 'data_proxima_visita',
+    label: 'Data próxima visita',
+    minWidth: 100,
+    numeric: false,
+    align: 'center'
+  }
+]

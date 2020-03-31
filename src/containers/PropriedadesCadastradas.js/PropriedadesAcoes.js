@@ -1,24 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { pegarTipoUsuarioAtualizarToken } from '../../services/usuarioAPI'
+import React from 'react'
 import ButtonSubmitForm from '../../components/button-submit-form/button-submit-form'
 import { retornaObjetosEscolhidos } from '../../helpers/retornaObjetosEscolhidos'
 import './PropriedadesAcoes.css'
 
-export default function PropriedadeAcoes({ propriedadesSelecionadas, history, propriedades }) {
-  const [tipoUsuario, setTipoUsuario] = useState(null)
-
-  useEffect(() => {
-    Usuario()
-  }, [])
-
-  async function Usuario() {
-    setTipoUsuario(await pegarTipoUsuarioAtualizarToken())
-  }
-
-  if (!tipoUsuario) {
-    return <></>
-  }
-
+export default function PropriedadeAcoes({ propriedadesSelecionadas, history, propriedades, tipoUsuario }) {
   function validarQtdPropriedadeSelecionada() {
     if (propriedadesSelecionadas.length > 1) {
       alert('Selecione apenas uma propriedade.')
@@ -48,7 +33,7 @@ export default function PropriedadeAcoes({ propriedadesSelecionadas, history, pr
     history.push(`/menu/dados-propriedade/${propriedade.id_propriedade_tecnico}`)
   }
 
-  if (tipoUsuario === 'tecnico') {
+  if (tipoUsuario === 'tecnico' || tipoUsuario === 'admin') {
     return (
       <div className="container-btns-propriedades-cadastradas mx-3">
         <ButtonSubmitForm
@@ -67,5 +52,15 @@ export default function PropriedadeAcoes({ propriedadesSelecionadas, history, pr
       </div>
     )
   }
-  return <h1 className="position-absolute">Cabação</h1>
+  return (
+    <div className="container-btns-propriedades-cadastradas mx-3">
+      <ButtonSubmitForm
+        loading={false}
+        text="Ver detalhes"
+        funcao={() => alert('Falta implementar')}
+        classCSS="w-40 btn-secondary"
+      />
+      <ButtonSubmitForm loading={false} text="Inclusões rápidas" funcao={inclusoesRapidas} classCSS="w-40" />
+    </div>
+  )
 }

@@ -36,7 +36,8 @@ export default function returnItensDashboard(tipoMenu) {
       itensMenu.push({
         text: 'Sair',
         url: '/menu/sair',
-        icon: exit
+        icon: exit,
+        redirect: true
       })
       break
     }
