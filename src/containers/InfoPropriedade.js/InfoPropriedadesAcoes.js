@@ -7,7 +7,6 @@ export default function InfoPropriedadeAcoes({ dadosPropriedade }) {
   const history = useHistory()
   const { id_propriedade_tecnico } = useParams()
 
-  console.log(dadosPropriedade)
   return (
     <div className="container-btns-acoes-info-propriedades">
       <ButtonSubmitForm

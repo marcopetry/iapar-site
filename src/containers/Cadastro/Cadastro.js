@@ -12,7 +12,7 @@ import {
   maskTelefone,
   maskCEP,
   apenasNumeros,
-  apenasAno
+  apenasAno,
 } from '../../helpers/masks-cadastro'
 import { setarErrosBackend } from '../../helpers/setarErrosBackend'
 import ContainerForm from '../../components/container-form/container-form'
@@ -66,6 +66,21 @@ export default function Cadastro() {
     }
   }, [history.location.pathname])
 
+  const limpar = () => {
+    setNome('')
+    setCPF('')
+    setTelefone('')
+    setCidade('')
+    setCep('')
+    setRua('')
+    setBairro('')
+    setNumero('')
+    setEmail('')
+    setTiporegistro('')
+    setRegistroProfissional('')
+    setAnoFormatura('')
+  }
+
   async function cadastrarUsuarioTecnico() {
     const dados = {
       nome,
@@ -82,7 +97,7 @@ export default function Cadastro() {
       registro_profissional,
       ano_formatura: anoFormatura,
       tipo_usuario,
-      cnpj
+      cnpj,
     }
     /*
             validators
@@ -92,7 +107,7 @@ export default function Cadastro() {
         */
     const errosValidados = validarInformacoesCadastro(dados, history.location.pathname)
     setErros(errosValidados)
-    if (errosValidados.some(elemento => elemento !== '')) {
+    if (errosValidados.some((elemento) => elemento !== '')) {
       return
     }
 
@@ -112,7 +127,7 @@ export default function Cadastro() {
       registro_profissional,
       ano_formatura: anoFormatura,
       tipo_usuario,
-      cnpj
+      cnpj,
     })
 
     setLoading(false)
@@ -137,6 +152,14 @@ export default function Cadastro() {
     if (history.location.pathname === '/menu/cadastrar-propriedade/cadastrar-proprietario') {
       history.push(`/menu/cadastrar-propriedade/${loading.data.id}/selecionar-tecnicos`)
     }
+
+    if (
+      history.location.pathname === '/menu/cadastrar-adm' ||
+      history.location.pathname === '/menu/cadastrar-tecnico'
+    ) {
+      limpar()
+      setLoading(false)
+    }
   }
 
   return (
@@ -146,7 +169,7 @@ export default function Cadastro() {
           <InputLabel htmlFor="nome-completo">Nome completo</InputLabel>
           <Input
             id="nome-completo"
-            onChange={e => setNome(e.target.value)}
+            onChange={(e) => setNome(e.target.value)}
             error={erros[0] === '' ? false : true}
             value={nome}
           />
@@ -157,7 +180,7 @@ export default function Cadastro() {
             <InputLabel htmlFor="cpf">CPF</InputLabel>
             <Input
               id="cpf"
-              onKeyDown={e => (confereNumeroOuBackspace(e) ? setCPF(maskCPF(e.key, cpf)) : null)}
+              onKeyDown={(e) => (confereNumeroOuBackspace(e) ? setCPF(maskCPF(e.key, cpf)) : null)}
               value={cpf}
               error={erros[1] === '' ? false : true}
             />
@@ -167,7 +190,7 @@ export default function Cadastro() {
             <InputLabel htmlFor="telefone">Telefone</InputLabel>
             <Input
               id="telefone"
-              onKeyDown={e => (confereNumeroOuBackspace(e) ? setTelefone(maskTelefone(e.key, telefone)) : null)}
+              onKeyDown={(e) => (confereNumeroOuBackspace(e) ? setTelefone(maskTelefone(e.key, telefone)) : null)}
               value={telefone}
               error={erros[2] === '' ? false : true}
             />
@@ -179,7 +202,7 @@ export default function Cadastro() {
             <InputLabel htmlFor="cidade">Cidade</InputLabel>
             <Input
               id="cidade"
-              onChange={e => setCidade(e.target.value)}
+              onChange={(e) => setCidade(e.target.value)}
               value={cidade}
               error={erros[3] === '' ? false : true}
             />
@@ -189,7 +212,7 @@ export default function Cadastro() {
             <InputLabel htmlFor="cep">Cep</InputLabel>
             <Input
               id="cep"
-              onKeyDown={e => (confereNumeroOuBackspace(e) ? setCep(maskCEP(e.key, cep)) : null)}
+              onKeyDown={(e) => (confereNumeroOuBackspace(e) ? setCep(maskCEP(e.key, cep)) : null)}
               value={cep}
               error={erros[4] === '' ? false : true}
             />
@@ -198,7 +221,7 @@ export default function Cadastro() {
         </FormGroup>
         <FormControl margin="dense" fullWidth>
           <InputLabel htmlFor="rua">Rua</InputLabel>
-          <Input id="rua" onChange={e => setRua(e.target.value)} value={rua} error={erros[5] === '' ? false : true} />
+          <Input id="rua" onChange={(e) => setRua(e.target.value)} value={rua} error={erros[5] === '' ? false : true} />
           <SpanErro erro={erros[5]} />
         </FormControl>
         <FormGroup row={true}>
@@ -206,7 +229,7 @@ export default function Cadastro() {
             <InputLabel htmlFor="bairro">Bairro</InputLabel>
             <Input
               id="bairro"
-              onChange={e => setBairro(e.target.value)}
+              onChange={(e) => setBairro(e.target.value)}
               value={bairro}
               error={erros[6] === '' ? false : true}
             />
@@ -216,7 +239,7 @@ export default function Cadastro() {
             <InputLabel htmlFor="numero">Número</InputLabel>
             <Input
               id="numero"
-              onKeyDown={e => (confereNumeroOuBackspace(e) ? setNumero(apenasNumeros(e.key, numero)) : null)}
+              onKeyDown={(e) => (confereNumeroOuBackspace(e) ? setNumero(apenasNumeros(e.key, numero)) : null)}
               value={numero}
               error={erros[7] === '' ? false : true}
             />
@@ -228,7 +251,7 @@ export default function Cadastro() {
           <Input
             id="email"
             type="email"
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             value={email}
             error={erros[8] === '' ? false : true}
           />
@@ -240,7 +263,7 @@ export default function Cadastro() {
             <Input
               id="senha"
               type="password"
-              onChange={e => setSenha(e.target.value)}
+              onChange={(e) => setSenha(e.target.value)}
               value={senha}
               error={erros[9] === '' ? false : true}
             />
@@ -253,7 +276,7 @@ export default function Cadastro() {
               <InputLabel htmlFor="tipo-registro_profissional">Tipo Registro</InputLabel>
               <Select
                 id="tipo-registro_profissional"
-                onChange={e => setTiporegistro(e.target.value)}
+                onChange={(e) => setTiporegistro(e.target.value)}
                 value={tipo_registro}
                 error={erros[10] === '' ? false : true}
               >
@@ -266,7 +289,7 @@ export default function Cadastro() {
               <InputLabel htmlFor="numero-registro_profissional">Número do Registro</InputLabel>
               <Input
                 id="numero-registro_profissional"
-                onChange={e => setRegistroProfissional(e.target.value)}
+                onChange={(e) => setRegistroProfissional(e.target.value)}
                 value={registro_profissional}
                 error={erros[11] === '' ? false : true}
               />
@@ -276,7 +299,9 @@ export default function Cadastro() {
               <InputLabel htmlFor="ano-formatura">Ano Formatura</InputLabel>
               <Input
                 id="ano-formatura"
-                onKeyDown={e => (confereNumeroOuBackspace(e) ? setAnoFormatura(apenasAno(e.key, anoFormatura)) : null)}
+                onKeyDown={(e) =>
+                  confereNumeroOuBackspace(e) ? setAnoFormatura(apenasAno(e.key, anoFormatura)) : null
+                }
                 value={anoFormatura}
                 error={erros[12] === '' ? false : true}
               />
@@ -291,7 +316,7 @@ export default function Cadastro() {
               <Input
                 id="cnpj"
                 // onKeyDown={e => confereNumeroOuBackspace(e) ? setCNPJ(apenasAno(e.key, anoFormatura)) : null}
-                onChange={e => setCNPJ(e.target.value)}
+                onChange={(e) => setCNPJ(e.target.value)}
                 value={cnpj}
                 error={erros[13] === '' ? false : true}
                 disabled={cnpj === 'Não possuo.' ? true : false}
